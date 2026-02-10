@@ -9,6 +9,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   
   <style>
+    /* 1. Убирает обводку при фокусе (клике или Tab) для всех элементов */
+*:focus {
+    outline: none !important;
+}
+
+/* 2. Убирает синее выделение (мигание) при нажатии на мобильных телефонах */
+* {
+    -webkit-tap-highlight-color: transparent;
+}
     /* --- CSS VARIABLES & THEMES --- */
     :root {
       --accent-green: #00f2a0;
@@ -16,8 +25,8 @@
       --transition: 0.3s ease;
       
       /* ФОНЫ (Ваши файлы) */
-      --bg-img-desktop: url('background-desktop.png'); 
-      --bg-img-mobile: url('background-mobile.png');
+      --bg-img-desktop: url('/images/background-desktop.png'); 
+      --bg-img-mobile: url('/images/background-mobile.png');
     }
 
     /* DARK THEME */
@@ -47,6 +56,10 @@
 
     /* LIGHT THEME */
     [data-theme="light"] {
+      /* ПЕРЕОПРЕДЕЛЕНИЕ ФОНОВ ДЛЯ СВЕТЛОЙ ТЕМЫ */
+      --bg-img-desktop: url('/images/background-desktop-white.png'); 
+      --bg-img-mobile: url('/images/background-mobile-white.png');
+
       --bg-main: #f0f4f8;
       --bg-overlay: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.8));
       --text-main: #1a202c;
@@ -121,11 +134,21 @@
 
     .theme-btn {
       width: 36px; height: 36px; border-radius: 50%; border: none; background: transparent;
-      color: var(--text-dim); cursor: pointer; display: flex; align-items: center; justify-content: center;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
       transition: var(--transition);
     }
-    .theme-btn:hover { color: var(--text-main); background: var(--glass-bg); }
-    .theme-btn svg { width: 20px; height: 20px; fill: currentColor; }
+    .theme-btn:hover { background: var(--glass-bg); }
+    
+    /* Стили для новых PNG иконок */
+    .theme-btn img { 
+        width: 22px; height: 22px; 
+        transition: var(--transition);
+    }
+    
+    /* Инвертируем цвета иконок в темной теме, чтобы черные PNG стали белыми */
+    [data-theme="dark"] .theme-btn img {
+        filter: invert(1) brightness(1.2);
+    }
 
     .hero { max-width: 900px; margin: auto; text-align: center; }
     .sheber-kz { 
@@ -268,8 +291,8 @@
       
       <div class="lang-rect">
         <button class="theme-btn" id="themeToggle">
-          <svg class="sun-icon" viewBox="0 0 24 24" style="display:none"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.93c.39-.39.39-1.02 0-1.41-.39-.39-1.02-.39-1.41 0l-1.41 1.41c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l1.41-1.41zm13.42 13.42c.39-.39.39-1.02 0-1.41-.39-.39-1.02-.39-1.41 0l-1.41 1.41c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l1.41-1.41zM5.99 19.07l-1.41 1.41c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41l1.41-1.41c.39-.39 1.02-.39 1.41 0 .39.39.39 1.02 0 1.41zM19.07 5.99l1.41-1.41c.39-.39.39-1.02 0-1.41-.39-.39-1.02-.39-1.41 0l-1.41 1.41c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0z"/></svg>
-          <svg class="moon-icon" viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-3.03 0-5.5-2.47-5.5-5.5 0-1.82.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/></svg>
+          <img class="sun-icon" src="https://cdn-icons-png.flaticon.com/128/66/66275.png" alt="Light Mode" style="display:none">
+          <img class="moon-icon" src="https://cdn-icons-png.flaticon.com/128/702/702471.png" alt="Dark Mode">
         </button>
       </div>
     </div>
@@ -309,7 +332,7 @@
         <div class="modal-desc"><span data-i18n="modal_code_desc">Код жіберілді:</span> <strong id="displayPhone" style="color:var(--text-main)"></strong></div>
         <div class="input-group">
           <label class="input-label" data-i18n="lbl_code">СМС коды</label>
-          <input type="number" class="modal-input" placeholder=" " id="codeInput">
+          <input type="number" class="modal-input" placeholder="XXXX" id="codeInput">
         </div>
         <button class="modal-btn" onclick="verifyCode()" data-i18n="btn_confirm">Растау</button>
         <div class="resend-link" onclick="backToPhone()" data-i18n="btn_change_phone">Нөмірді өзгерту</div>
@@ -322,15 +345,15 @@
             <div class="role-icon-circle">
               <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
             </div>
-            <div class="role-name" data-i18n="role_client">Тапсырыс беруші</div>
-            <div class="role-sub" data-i18n="role_client_sub">Іздеудемін</div>
+            <div class="role-name" data-i18n="role_client">Клиент</div>
+            <div class="role-sub" data-i18n="role_client_sub">Шебер іздеймін</div>
           </div>
           <div class="role-card" onclick="chooseRole('master')">
             <div class="role-icon-circle">
               <svg viewBox="0 0 24 24"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg>
             </div>
             <div class="role-name" data-i18n="role_master">Шебер</div>
-            <div class="role-sub" data-i18n="role_master_sub">Жұмыс істеймін</div>
+            <div class="role-sub" data-i18n="role_master_sub">Клиент іздеймін</div>
           </div>
         </div>
       </div>
@@ -340,13 +363,13 @@
         
         <div class="input-group">
           <label class="input-label" data-i18n="lbl_name">Есіміңіз</label>
-          <input type="text" class="modal-input" id="regName" placeholder=" ">
+          <input type="text" class="modal-input" id="regName" placeholder="Азамат">
         </div>
 
         <div id="clientFields">
             <div class="input-group">
                 <label class="input-label" data-i18n="lbl_city">Қала / Мекен-жай</label>
-                <input type="text" class="modal-input" id="regCity" placeholder=" ">
+                <input type="text" class="modal-input" id="regCity" placeholder="Алматы, Абай к-сі 10">
             </div>
         </div>
 
@@ -362,11 +385,11 @@
           </div>
           <div class="input-group">
             <label class="input-label" data-i18n="lbl_exp">Тәжірибе (жыл)</label>
-            <input type="number" class="modal-input" id="regExp" placeholder=" ">
+            <input type="number" class="modal-input" id="regExp" placeholder="3">
           </div>
           <div class="input-group">
             <label class="input-label" data-i18n="lbl_about">О себе (қысқаша)</label>
-            <textarea class="modal-textarea" id="regAbout" placeholder=" "></textarea>
+            <textarea class="modal-textarea" id="regAbout" placeholder="..."></textarea>
           </div>
         </div>
 
@@ -382,8 +405,8 @@
         start_btn: "Бастау", modal_phone_title: "Кіру", modal_phone_desc: "Жалғастыру үшін телефон нөмірін енгізіңіз",
         lbl_phone: "Телефон", btn_get_code: "Код алу", modal_code_title: "Растау", modal_code_desc: "Код жіберілді:",
         lbl_code: "СМС коды", btn_confirm: "Растау", btn_change_phone: "Нөмірді өзгерту",
-        role_title: "Сіз кімсіз?", role_client: "Тапсырыс беруші", role_client_sub: "Мастер іздеймін",
-        role_master: "Шебер", role_master_sub: "Жұмыс іздеймін", reg_title: "Тіркелу",
+        role_title: "Сіз кімсіз?", role_client: "Клиент", role_client_sub: "Шебер іздеймін",
+        role_master: "Шебер", role_master_sub: "Клиент іздеймін", reg_title: "Тіркелу",
         lbl_name: "Есіміңіз", lbl_spec: "Мамандық", btn_save: "Дайын",
         spec_plumber: "Сантехник", spec_electrician: "Электрик", spec_builder: "Құрылысшы", spec_cleaner: "Клининг",
         terms_text: "Жалғастыра отырып, сіз келісесіз:", terms_link: "қолдану ережелері",
