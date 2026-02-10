@@ -1,1121 +1,287 @@
 <!DOCTYPE html>
-<html lang="ru">
-
+<html lang="ru" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <title>Работа в Кызылорде — Jumys.online | Вакансиялар мен жұмыс</title>
-  <meta name="description"
-    content="Jumys.online — Кызылордадағы ең жаңа бос жұмыс орындары мен вакансиялар порталы. Поиск работы и сотрудников в Кызылорде за 5 минут.">
-  <meta name="keywords"
-    content="жұмыс кызылорда, работа кызылорда, вакансии кызылорда, jumys online, работа для студентов кызылорда">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Sheber.kz | Главная</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;900&display=swap"
-    rel="stylesheet">
-  <meta property="og:title" content="Jumys.online — Қызылордадағы жұмыс">
-  <meta property="og:description" content="Жұмыс немесе қызметкерді 5 минутта табыңыз. Жылдам әрі ыңғайлы.">
-  <meta property="og:image"
-    content="https://raw.githubusercontent.com/spiritz-site/Jumys.online/main/poster%2016%209.png">
-  <meta property="og:type" content="website">
-  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/spiritz-site/Jumys.online/main/favicon.png">
-
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
   <style>
-    /* ===== BASE ===== */
-    * {
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
+    /* 1. БАЗА */
+    *:focus { outline: none !important; }
+    * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; font-family: 'Montserrat', sans-serif; background: var(--bg-main); color: var(--text-main); overflow-x: hidden; }
+
+    /* --- VARIABLES --- */
+    :root {
+      --accent-green: #00f2a0;
+      --accent-blue: #00c9ff;
+      --transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      --bg-img-desktop: url('/images/background-desktop-1.png'); 
+      --bg-img-mobile: url('/images/background-mobile-1.png');
     }
 
-    html,
-    body {
-      height: 100%;
-      margin: 0;
+    /* DARK THEME */
+    [data-theme="dark"] {
+      --bg-main: #010a1a;
+      --bg-overlay: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.8));
+      --text-main: #ffffff;
+      --text-dim: rgba(255, 255, 255, 0.6);
+      --glass-bg: rgba(255, 255, 255, 0.08);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --card-bg: linear-gradient(145deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.03) 100%);
+      --menu-bg: #0b1426;
+      --sidebar-border: rgba(255,255,255,0.1);
+      --switcher-bg: rgba(255, 255, 255, 0.08);
+      --switcher-active-bg: rgba(255, 255, 255, 0.2);
+      --switcher-active-text: #ffffff;
+      --accent-gradient: linear-gradient(135deg, #00f2a0 0%, #00c9ff 100%);
+      --accent-text-color: #010a1a;
     }
 
-    body {
-      font-family: 'Montserrat', sans-serif;
-      background-color: #f4f6f9;
-      background-image: url("home-background.png");
+    /* LIGHT THEME */
+    [data-theme="light"] {
+      --bg-img-desktop: url('/images/background-desktop-white-1.png'); 
+      --bg-img-mobile: url('/images/background-mobile-white-1.png');
+      --bg-main: #f0f4f8;
+      --bg-overlay: linear-gradient(to bottom, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.9));
+      --text-main: #1a202c;
+      --text-dim: #4a5568;
+      --glass-bg: rgba(255, 255, 255, 0.65);
+      --glass-border: rgba(255, 255, 255, 0.6);
+      --card-bg: linear-gradient(145deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.6) 100%);
+      --menu-bg: #ffffff;
+      --sidebar-border: rgba(0,0,0,0.1);
+      --switcher-bg: rgba(0, 0, 0, 0.05);
+      --switcher-active-bg: #ffffff;
+      --switcher-active-text: #1a202c;
+      --accent-gradient: linear-gradient(135deg, #00f2a0 0%, #00c9ff 100%);
+      --accent-text-color: #010a1a;
+    }
+
+    .app-container {
+      min-height: 100vh;
+      position: relative;
+      background-image: var(--bg-img-desktop);
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
-      color: #334155;
-      overflow-x: hidden;
+      transition: background-image 0.3s ease;
     }
-
-    body::-webkit-scrollbar {
-      width: 8px;
+    .app-container::before {
+      content: ""; position: absolute; inset: 0;
+      background: var(--bg-overlay);
+      z-index: 0; pointer-events: none;
     }
+    @media (max-width: 768px) { .app-container { background-image: var(--bg-img-mobile); } }
 
-    body::-webkit-scrollbar-track {
-      background: transparent;
-    }
-
-    body::-webkit-scrollbar-thumb {
-      background: rgba(0, 0, 0, 0.1);
-      border-radius: 4px;
-    }
-
-    :root {
-      --pad: 20px;
-      --shadow: 0px 5px 20px rgba(0, 0, 0, 0.05);
-      --border: 1px solid rgba(255, 255, 255, 0.5);
-      --radius: 20px;
-      --primary: #00205b;
-      /* RESTORED FIRM DARK BLUE */
-      --vip-gold: #FFD700;
-    }
-
-    .app {
-      width: 100%;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .content {
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 40px var(--pad);
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
-
-    /* LANG SWITCHER */
-    .header-row {
-      display: flex;
-      justify-content: flex-end;
-      margin-bottom: -10px;
-    }
-
-    .lang-switch {
-      background: rgba(255, 255, 255, 0.6);
-      backdrop-filter: blur(10px);
-      padding: 4px;
-      border-radius: 12px;
-      display: flex;
-      gap: 4px;
-      border: 1px solid rgba(255, 255, 255, 0.5);
-    }
-
-    .lang-btn {
-      padding: 6px 12px;
-      border-radius: 8px;
-      font-size: 12px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s;
-      color: #666;
-    }
-
-    .lang-btn.active {
-      background: #fff;
-      color: var(--primary);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    /* SEARCH */
-    .search-container {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .search {
-      position: relative;
-      width: 100%;
-    }
-
-    .search-bg {
-      height: 48px;
-      width: 100%;
-      border-radius: 16px;
-      background: rgba(255, 255, 255, 0.7);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.5);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
-    }
-
-    .searchbar {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 0 16px;
-    }
-
-    .searchbar input {
-      border: 0;
-      outline: 0;
-      background: transparent;
-      width: 100%;
-      font-size: 15px;
-      color: #172343;
-      font-family: inherit;
-      font-weight: 500;
-    }
-
-    .question {
-      font-size: 24px;
-      font-weight: 800;
-      color: #172343;
-      letter-spacing: -0.5px;
-    }
-
-    /* CATEGORIES */
-    .categories {
-      display: flex;
-      gap: 14px;
-      width: 100%;
-    }
-
-    .category {
-      flex: 1;
-      position: relative;
-      border-radius: var(--radius);
-      cursor: pointer;
-      overflow: hidden;
-      aspect-ratio: 10/6 !important;
-      transition: transform 0.2s;
-      background: rgba(255, 255, 255, 0.6);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.4);
-    }
-
-    .category.is-active {
-      transform: scale(1.02);
-      z-index: 2;
-      box-shadow: 0 15px 30px rgba(0, 80, 255, 0.25);
-      border: 1px solid rgba(255, 255, 255, 0.8);
-    }
-
-    .category__bg {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, #0069ff 0%, #00afff 100%);
-      opacity: 0.85;
-    }
-
-    .category--worker .category__bg {
-      transform: rotate(180deg);
-    }
-
-    .category__content {
-      position: relative;
-      z-index: 1;
-      height: 100%;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .category__title {
-      font-size: 19px;
-      font-weight: 700;
-      color: #fff;
-      line-height: 1;
-    }
-
-    .category__subtitle {
-      font-size: 13px;
-      color: rgba(255, 255, 255, 0.9);
-      font-weight: 500;
-    }
-
-    .category__count {
-      font-size: 12px;
-      color: rgba(255, 255, 255, 0.9);
-      background: rgba(255, 255, 255, 0.2);
-      padding: 4px 10px;
-      border-radius: 20px;
-      align-self: flex-start;
-    }
-
-    /* ADD BANNER */
-    .add-action-box {
-      width: 100%;
-      padding: 16px;
-      border-radius: 20px;
-      background: rgba(255, 255, 255, 0.5);
-      backdrop-filter: blur(10px);
-      border: 1px dashed var(--primary);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      text-decoration: none;
-      transition: all 0.2s ease;
-    }
-
-    .add-action-box:active {
-      transform: scale(0.98);
-    }
-
-    .add-action-title {
-      font-size: 15px;
-      font-weight: 800;
-      color: var(--primary);
-    }
-
-    .add-action-sub {
-      font-size: 12px;
-      color: #666;
-      font-weight: 500;
-    }
-
-    .add-action-icon {
-      width: 36px;
-      height: 36px;
-      background: var(--primary);
-      color: #fff;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      font-weight: 700;
-    }
-
-    /* SECTION HEADER & TAG FILTER */
-    .section-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: 10px;
-      gap: 10px;
-    }
-
-    .section-title {
-      font-size: 20px;
-      font-weight: 700;
-      color: #172343;
-      line-height: 1.2;
-    }
-
-    .show-all {
-      flex-shrink: 0;
-      padding: 8px 16px;
-      background: rgba(255, 255, 255, 0.7);
-      backdrop-filter: blur(10px);
-      border-radius: 99px;
-      border: var(--border);
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    /* ACTIVE TAG PANEL */
-    .active-tag-panel {
-      display: none;
-      align-items: center;
-      gap: 10px;
-      margin-top: -10px;
-      animation: fadeIn 0.3s ease;
-    }
-
-    .active-tag-panel.visible {
-      display: flex;
-    }
-
-    .active-tag-chip {
-      background: var(--primary);
-      color: #fff;
-      padding: 6px 14px;
-      border-radius: 99px;
-      font-size: 13px;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      box-shadow: 0 4px 12px rgba(0, 32, 91, 0.2);
-    }
-
-    .close-tag-btn {
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      opacity: 0.8;
-      transition: 0.2s;
-    }
-
-    .close-tag-btn:hover {
-      opacity: 1;
-      transform: scale(1.1);
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(-5px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* ========== NEW CARD LAYOUT with Glassmorphism ========== */
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-      gap: 16px;
-      padding-bottom: 40px;
-    }
-
-    .card {
-      /* GLASSMORPHISM */
-      background: rgba(255, 255, 255, 0.65);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
-
-      border-radius: 20px;
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      height: 100%;
-      position: relative;
-      transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
-      overflow: hidden;
-    }
-
-    .card:hover {
-      transform: translateY(-4px);
-      background: rgba(255, 255, 255, 0.85);
-      /* Lighten on hover */
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
-      border-color: rgba(255, 255, 255, 0.6);
-    }
-
-    /* VIP */
-    .card--vip {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 253, 235, 0.8) 100%);
-      border: 1px solid rgba(255, 229, 143, 0.6);
-    }
-
-    /* Fixed Badge Position */
-    .vip-badge {
-      position: absolute;
-      top: 0;
-      right: 0;
-      background: var(--vip-gold);
-      color: #3d2e00;
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 0.5px;
-      padding: 5px 10px;
-      border-radius: 0 0 0 12px;
-      z-index: 10;
-      pointer-events: none;
+    .main-content {
+        position: relative; z-index: 2;
+        padding: 16px 20px;
+        max-width: 600px; margin: 0 auto;
+        padding-bottom: 100px;
     }
 
     /* HEADER */
-    .card__header {
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 12px 0 24px 0; }
+    .icon-btn {
+        width: 44px; height: 44px; border-radius: 50%;
+        background: var(--glass-bg); border: 1px solid var(--glass-border);
+        display: flex; align-items: center; justify-content: center;
+        cursor: pointer; position: relative; backdrop-filter: blur(10px);
     }
+    .icon-btn svg { width: 24px; height: 24px; fill: var(--text-main); }
+    .notification-dot { position: absolute; top: 10px; right: 10px; width: 8px; height: 8px; background: #ff4757; border-radius: 50%; border: 1px solid var(--menu-bg); }
 
-    .card__icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      object-fit: cover;
-      flex-shrink: 0;
-      background: transparent;
-      /* REMOVED BACKGROUND */
+    .address-selector { display: flex; flex-direction: column; align-items: center; cursor: pointer; }
+    .addr-label { font-size: 10px; color: var(--text-dim); text-transform: uppercase; font-weight: 700; letter-spacing: 1px; }
+    .addr-val { font-size: 14px; font-weight: 600; color: var(--text-main); display: flex; align-items: center; gap: 4px; }
+    .addr-val svg { width: 12px; height: 12px; fill: var(--accent-green); }
+
+    /* GRID */
+    .section-title { font-size: 18px; font-weight: 800; margin-bottom: 16px; color: var(--text-main); }
+    .service-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 30px; }
+    .service-card {
+        background: var(--card-bg); border: 1px solid var(--glass-border);
+        border-radius: 20px; padding: 16px 8px;
+        display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+        backdrop-filter: blur(10px); cursor: pointer; transition: 0.2s; aspect-ratio: 1 / 1;
     }
+    .service-card:active { transform: scale(0.96); }
+    .service-icon { width: 40px; height: 40px; object-fit: contain; }
+    [data-theme="dark"] .service-icon { filter: invert(1) brightness(1.5); }
+    .service-name { font-size: 11px; font-weight: 600; text-align: center; line-height: 1.2; }
 
-    .card__meta {
-      flex: 1;
-      min-width: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-      padding-top: 2px;
+    /* QUICK REQ */
+    .quick-request-card {
+        background: var(--card-bg); border: 1px solid var(--glass-border);
+        border-radius: 24px; padding: 24px; text-align: center;
+        backdrop-filter: blur(12px); margin-bottom: 30px;
     }
-
-    .card__title {
-      font-size: 16px;
-      font-weight: 700;
-      color: #172343;
-      line-height: 1.25;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
+    .quick-btn {
+        background: var(--accent-gradient); width: 100%; border: none; padding: 18px;
+        border-radius: 16px; font-size: 16px; font-weight: 800; text-transform: uppercase;
+        color: var(--accent-text-color); box-shadow: 0 10px 20px rgba(0, 242, 160, 0.3);
+        cursor: pointer; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; gap: 8px;
     }
+    .quick-desc { font-size: 13px; color: var(--text-dim); }
 
-    .card__company {
-      font-size: 13px;
-      color: #64748b;
-      font-weight: 500;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+    /* SIDEBAR */
+    .sidebar-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 100; opacity: 0; visibility: hidden; transition: 0.3s; backdrop-filter: blur(4px); }
+    .sidebar-overlay.active { opacity: 1; visibility: visible; }
+    .sidebar {
+        position: fixed; top: 0; left: 0; bottom: 0; width: 280px; background: var(--menu-bg);
+        z-index: 101; transform: translateX(-100%); transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        padding: 40px 24px; display: flex; flex-direction: column; border-right: 1px solid var(--sidebar-border);
     }
+    .sidebar.active { transform: translateX(0); }
+    .avatar { width: 50px; height: 50px; border-radius: 50%; background: var(--glass-bg); border: 2px solid var(--accent-green); display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700; }
+    .menu-list { list-style: none; padding: 0; margin: 40px 0; flex: 1; }
+    .menu-item { padding: 16px 0; border-bottom: 1px solid var(--glass-border); color: var(--text-main); display: flex; align-items: center; gap: 12px; cursor: pointer; }
+    .menu-item svg { width: 20px; height: 20px; fill: var(--text-dim); }
 
-    .card__salary-pill {
-      flex-shrink: 0;
-      font-size: 11px;
-      font-weight: 700;
-      color: #009945;
-      background: rgba(230, 250, 235, 0.8);
-      /* Slight transparent pill */
-      padding: 6px 8px;
-      border-radius: 8px;
-      white-space: nowrap;
-      margin-left: 2px;
-      margin-top: 2px;
-    }
-
-    .card--vip .card__header {
-      padding-right: 28px;
-    }
-
-    /* BODY */
-    .card__body {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .card__desc {
-      font-size: 14px;
-      line-height: 1.5;
-      color: #475569;
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
-    /* FOOTER */
-    .card__footer {
-      display: flex;
-      align-items: center;
-      /* Center Vertically if tags wrap to 2 lines */
-      justify-content: space-between;
-      gap: 12px;
-      margin-top: auto;
-      padding-top: 4px;
-    }
-
-    /* --- FIXED TAGS WRAPPING --- */
-    .card__tags {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-      /* WRAP TAGS */
-      height: auto;
-      /* AUTO HEIGHT */
-      align-items: center;
-      flex: 1;
-      /* Take all space left of button */
-    }
-
-    .tag {
-      height: auto;
-      /* Allow growth */
-      min-height: 26px;
-      padding: 4px 10px;
-      border-radius: 6px;
-      display: inline-flex;
-      align-items: center;
-      font-size: 11px;
-      font-weight: 600;
-      white-space: normal;
-      /* ALLOW TEXT WRAP */
-      word-break: break-word;
-      /* BREAK LONG WORDS */
-      max-width: 100%;
-      cursor: pointer;
-      line-height: 1.2;
-    }
-
-    .tag:hover {
-      transform: translateY(-1px);
-      opacity: 0.8;
-    }
-
-    .tag--cyan {
-      background: #E0F2FE;
-      color: #0284C7;
-    }
-
-    .tag--pink {
-      background: #FFE4E6;
-      color: #E11D48;
-    }
-
-    .tag--green {
-      background: #DCFCE7;
-      color: #166534;
-    }
-
-    .tag--purple {
-      background: #F3E8FF;
-      color: #7E22CE;
-    }
-
-    .tag--orange {
-      background: #FFEDD5;
-      color: #C2410C;
-    }
-
-    .tag--blue {
-      background: #DBEAFE;
-      color: #1E40AF;
-    }
-
-    .tag--yellow {
-      background: #FEF9C3;
-      color: #A16207;
-    }
-
-    .tag--gray {
-      background: #F1F5F9;
-      color: #475569;
-    }
-
-    .card__btn {
-      flex-shrink: 0;
-      height: 36px;
-      padding: 0 16px;
-      align-self: flex-end;
-      /* Align button to bottom if tags grow tall? or center? Center is safer for balance. */
-      /* Actually center is better if tags are 2 lines. But let's try center. */
-      border-radius: 10px;
-      background: var(--primary);
-      /* Uses #00205b */
-      color: #fff;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 13px;
-      font-weight: 600;
-      transition: 0.2s;
-      box-shadow: 0 4px 10px rgba(0, 32, 91, 0.25);
-      /* Added glow for firm look */
-    }
-
-    .card__btn:hover {
-      background: #001640;
-      box-shadow: 0 6px 14px rgba(0, 32, 91, 0.35);
-    }
-
-    .card__btn:active {
-      transform: scale(0.96);
-    }
-
-    /* SKELETON */
-    .skeleton-box {
-      background: rgba(0, 0, 0, 0.06);
-      border-radius: 6px;
-      animation: pulse 1.5s infinite ease-in-out;
-    }
-
-    @keyframes pulse {
-      0% {
-        opacity: 0.6;
-      }
-
-      50% {
-        opacity: 1;
-      }
-
-      100% {
-        opacity: 0.6;
-      }
-    }
-
-    /* MEDIA QUERIES */
-    @media (min-width: 768px) {
-      .question {
-        font-size: 32px;
-        text-align: center;
-        margin-bottom: 10px;
-      }
-
-      .search-container {
-        max-width: 800px;
-        margin: 0 auto;
-      }
-
-      .categories {
-        max-width: 800px;
-        margin: 0 auto;
-        gap: 24px;
-      }
-
-      .category {
-        aspect-ratio: 15/5;
-      }
-
-      .add-action-box {
-        max-width: 800px;
-        margin: 0 auto;
-      }
-
-      .section-row,
-      .active-tag-panel {
-        max-width: 1200px;
-        margin: 20px auto 10px;
-      }
-
-      .cards {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 24px;
-      }
-    }
-
-    @media (min-width: 1024px) {
-      .cards {
-        grid-template-columns: repeat(3, 1fr);
-      }
-
-      .question {
-        font-size: 40px;
-      }
-    }
-
-    @media (max-width: 767px) {
-      .app {
-        max-width: 100%;
-        background: transparent;
-      }
-
-      .content {
-        padding: 20px 16px;
-      }
-
-      .cards {
-        grid-template-columns: 1fr;
-      }
-
-      .category {
-        aspect-ratio: 167/197;
-      }
-    }
-
-    /* SEARCH HEADER FIX */
-    .search-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-      margin-bottom: 12px;
-    }
-
-    .question {
-      margin-bottom: 0 !important;
-      line-height: 1;
-    }
-
-    .lang-switch {
-      margin-left: 10px;
-      flex-shrink: 0;
-    }
-
-    @media (min-width: 768px) {
-      .search-header {
-        justify-content: center;
-        position: relative;
-      }
-
-      .search-header .lang-switch {
-        position: absolute;
-        right: 0;
-        top: 50%;
-        transform: translateY(-50%);
-      }
-    }
+    /* SWITCHERS */
+    .menu-footer { margin-top: auto; padding-top: 20px; display: flex; flex-direction: column; gap: 20px; }
+    .lang-rect { display: flex; position: relative; padding: 4px; background: var(--switcher-bg); border: 1px solid var(--glass-border); border-radius: 100px; overflow: hidden; }
+    .lang-pill { flex: 1; text-align: center; position: relative; z-index: 2; padding: 10px 0; font-size: 13px; font-weight: 700; cursor: pointer; color: var(--text-dim); transition: 0.3s; }
+    .lang-pill.active { color: var(--switcher-active-text); }
+    .glider { position: absolute; top: 4px; left: 4px; bottom: 4px; background: var(--switcher-active-bg); border-radius: 100px; z-index: 1; transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); }
+    
+    .theme-switch-row { display: flex; align-items: center; justify-content: space-between; }
+    .toggle-switch { position: relative; width: 52px; height: 30px; }
+    .toggle-switch input { opacity: 0; width: 0; height: 0; }
+    .slider { position: absolute; cursor: pointer; inset: 0; background-color: var(--switcher-bg); border: 1px solid var(--glass-border); transition: .4s; border-radius: 34px; }
+    .slider:before { position: absolute; content: ""; height: 24px; width: 24px; left: 2px; bottom: 2px; background-color: #fff; transition: .4s; border-radius: 50%; }
+    input:checked + .slider { background-color: var(--accent-green); border-color: var(--accent-green); }
+    input:checked + .slider:before { transform: translateX(22px); }
   </style>
 </head>
 
 <body>
-  <div class="app">
-    <div class="content">
+  <div class="app-container">
+    
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleMenu()"></div>
+    <div class="sidebar" id="sidebar">
+        <div class="user-profile" style="display:flex; align-items:center; gap:12px;">
+            <div class="avatar">A</div>
+            <div class="user-info">
+                <div class="name" style="font-weight:700">Азамат</div>
+                <div class="phone" style="font-size:12px; color:var(--text-dim)">+7 (707) 123-45-67</div>
+            </div>
+        </div>
+        
+        <ul class="menu-list">
+            <li class="menu-item"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg> <span data-i18n="menu_profile">Профиль</span></li>
+            <li class="menu-item"><svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg> <span data-i18n="menu_orders">История заказов</span></li>
+            <li class="menu-item"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.58 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg> <span data-i18n="menu_settings">Настройки</span></li>
+            <li class="menu-item"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg> <span data-i18n="menu_help">Помощь</span></li>
+        </ul>
 
-      <!-- HEADER SEARCH -->
-      <div class="search-container">
-        <div class="search-header">
-          <div class="question" data-i18n="question">Не іздеп отырсыз?</div>
-          <div class="lang-switch">
-            <div class="lang-btn" onclick="changeLang('kz')" id="btnKz">KZ</div>
-            <div class="lang-btn" onclick="changeLang('ru')" id="btnRu">RU</div>
-          </div>
+        <div class="menu-footer">
+            <div class="lang-rect" id="sidebarLangRect">
+                <div class="glider"></div>
+                <div class="lang-pill active" data-lang="kz" onclick="setLanguage('kz')">Қаз</div>
+                <div class="lang-pill" data-lang="ru" onclick="setLanguage('ru')">Рус</div>
+            </div>
+            <div class="theme-switch-row">
+                <span class="theme-label" data-i18n="night_mode">Түнгі режим</span>
+                <label class="toggle-switch"><input type="checkbox" id="themeCheckbox"><span class="slider"></span></label>
+            </div>
         </div>
-        <div class="search">
-          <div class="search-bg"></div>
-          <div class="searchbar">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="11" cy="11" r="8"></circle>
-              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            </svg>
-            <input id="q" placeholder="..." autocomplete="off">
-          </div>
-        </div>
-      </div>
+    </div>
 
-      <!-- CATEGORIES -->
-      <div class="categories">
-        <div class="category category--work is-active" id="catWork" data-type="vacancy">
-          <div class="category__bg"></div>
-          <div class="category__content">
-            <div class="cat-top">
-              <div class="category__title" data-i18n="cat_work">Жұмыс</div>
-              <div class="category__subtitle" data-i18n="cat_work_sub">Вакансиялар</div>
+    <div class="main-content">
+        <header class="header">
+            <button class="icon-btn" onclick="toggleMenu()"><svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg></button>
+            <div class="address-selector">
+                <div class="addr-label" data-i18n="addr_label">Мекенжай</div>
+                <div class="addr-val">Астана, Көктал-1 <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg></div>
             </div>
-            <div class="category__count" id="countVac">...</div>
-          </div>
-        </div>
-        <div class="category category--worker" id="catWorker" data-type="profile">
-          <div class="category__bg"></div>
-          <div class="category__content">
-            <div class="cat-top">
-              <div class="category__title" data-i18n="cat_worker">Жұмысшы</div>
-              <div class="category__subtitle" data-i18n="cat_worker_sub">Анкеталар</div>
-            </div>
-            <div class="category__count" id="countProf">...</div>
-          </div>
-        </div>
-      </div>
+            <button class="icon-btn"><svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/></svg><div class="notification-dot"></div></button>
+        </header>
 
-      <!-- BANNER -->
-      <a href="https://t.me/jumys_online_bot" target="_blank" class="add-action-box">
-        <div class="add-action-text">
-          <div class="add-action-title" data-i18n="add_title">Өз хабарландыруыңды қос</div>
-          <div class="add-action-sub" data-i18n="add_sub">Жұмыс немесе жұмысшы іздеу 650₸</div>
+        <div class="section-title" data-i18n="services_title">Қызметтер</div>
+        <div class="service-grid">
+            <div class="service-card"><img src="https://cdn-icons-png.flaticon.com/128/8138/8138943.png" class="service-icon"><div class="service-name" data-i18n="spec_electrician">Электрик</div></div>
+            <div class="service-card"><img src="https://cdn-icons-png.flaticon.com/128/7583/7583177.png" class="service-icon"><div class="service-name" data-i18n="spec_plumber">Сантехник</div></div>
+            <div class="service-card"><img src="https://cdn-icons-png.flaticon.com/128/4479/4479614.png" class="service-icon"><div class="service-name" data-i18n="spec_builder">Ремонт</div></div>
+            <div class="service-card"><img src="https://cdn-icons-png.flaticon.com/128/6656/6656767.png" class="service-icon"><div class="service-name" data-i18n="spec_garden">Аула</div></div>
+            <div class="service-card"><img src="https://cdn-icons-png.flaticon.com/128/3050/3050809.png" class="service-icon"><div class="service-name" data-i18n="spec_cleaner">Тазалық</div></div>
+            <div class="service-card"><img src="https://cdn-icons-png.flaticon.com/128/3018/3018447.png" class="service-icon"><div class="service-name" data-i18n="spec_all">Барлығы</div></div>
         </div>
-        <div class="add-action-icon">+</div>
-      </a>
 
-      <!-- ACTIVE TAGS -->
-      <div id="activeTagPanel" class="active-tag-panel">
-        <div class="active-tag-chip">
-          <span id="activeTagText">#tag</span>
-          <div class="close-tag-btn" onclick="clearTag()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
-              stroke-linecap="round" stroke-linejoin="round">
-              <line x1="18" y1="6" x2="6" y2="18"></line>
-              <line x1="6" y1="6" x2="18" y2="18"></line>
-            </svg>
-          </div>
+        <div class="quick-request-card">
+            <button class="quick-btn" data-i18n="quick_btn">Бағасын өзің қой!</button>
+            <div class="quick-desc" data-i18n="quick_desc">Мамандар 5 минутта жауап береді</div>
         </div>
-      </div>
 
-      <!-- SECTION TITLE -->
-      <div class="section-row">
-        <div class="section-title" id="sectionTitle" data-i18n="section_title_vac">Ұсынылған вакансиялар</div>
-        <div class="show-all" id="showAll" data-i18n="show_all">Бәрі</div>
-      </div>
-
-      <!-- CARDS LIST -->
-      <div class="cards" id="cards">
-        <!-- INITIAL SKELETONS -->
-        <div class="card">
-          <div class="card__header">
-            <div class="skeleton-box" style="width:44px; height:44px; border-radius:12px; flex-shrink:0;"></div>
-            <div style="flex:1; display:flex; flex-direction:column; gap:6px;">
-              <div class="skeleton-box" style="height:14px; width:70%;"></div>
-              <div class="skeleton-box" style="height:12px; width:40%;"></div>
+        <div class="section-title" data-i18n="active_order">Активный заказ</div>
+        <div class="active-order-card">
+            <div class="order-info">
+                <div class="order-label" data-i18n="order_label">В работе</div>
+                <div class="order-status" data-i18n="order_status">Мастер в пути</div>
             </div>
-            <div class="skeleton-box" style="width:60px; height:24px; border-radius:8px;"></div>
-          </div>
-          <div class="card__body" style="gap:8px; margin-top:12px;">
-            <div class="skeleton-box" style="height:12px; width:100%;"></div>
-            <div class="skeleton-box" style="height:12px; width:90%;"></div>
-            <div class="skeleton-box" style="height:12px; width:60%;"></div>
-          </div>
-          <div class="card__footer">
-            <div style="display:flex; gap:6px;">
-              <div class="skeleton-box" style="width:40px; height:26px; border-radius:6px;"></div>
-              <div class="skeleton-box" style="width:40px; height:26px; border-radius:6px;"></div>
-            </div>
-            <div class="skeleton-box" style="width:70px; height:36px; border-radius:10px;"></div>
-          </div>
+            <div class="order-btn"><svg viewBox="0 0 24 24" style="width:24px; fill:currentColor"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg></div>
         </div>
-        <div class="card">
-          <div class="card__header">
-            <div class="skeleton-box" style="width:44px; height:44px; border-radius:12px; flex-shrink:0;"></div>
-            <div style="flex:1; display:flex; flex-direction:column; gap:6px;">
-              <div class="skeleton-box" style="height:14px; width:70%;"></div>
-              <div class="skeleton-box" style="height:12px; width:40%;"></div>
-            </div>
-            <div class="skeleton-box" style="width:60px; height:24px; border-radius:8px;"></div>
-          </div>
-          <div class="card__body" style="gap:8px; margin-top:12px;">
-            <div class="skeleton-box" style="height:12px; width:100%;"></div>
-            <div class="skeleton-box" style="height:12px; width:90%;"></div>
-            <div class="skeleton-box" style="height:12px; width:60%;"></div>
-          </div>
-          <div class="card__footer">
-            <div style="display:flex; gap:6px;">
-              <div class="skeleton-box" style="width:40px; height:26px; border-radius:6px;"></div>
-              <div class="skeleton-box" style="width:40px; height:26px; border-radius:6px;"></div>
-            </div>
-            <div class="skeleton-box" style="width:70px; height:36px; border-radius:10px;"></div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card__header">
-            <div class="skeleton-box" style="width:44px; height:44px; border-radius:12px; flex-shrink:0;"></div>
-            <div style="flex:1; display:flex; flex-direction:column; gap:6px;">
-              <div class="skeleton-box" style="height:14px; width:70%;"></div>
-              <div class="skeleton-box" style="height:12px; width:40%;"></div>
-            </div>
-            <div class="skeleton-box" style="width:60px; height:24px; border-radius:8px;"></div>
-          </div>
-          <div class="card__body" style="gap:8px; margin-top:12px;">
-            <div class="skeleton-box" style="height:12px; width:100%;"></div>
-            <div class="skeleton-box" style="height:12px; width:90%;"></div>
-            <div class="skeleton-box" style="height:12px; width:60%;"></div>
-          </div>
-          <div class="card__footer">
-            <div style="display:flex; gap:6px;">
-              <div class="skeleton-box" style="width:40px; height:26px; border-radius:6px;"></div>
-              <div class="skeleton-box" style="width:40px; height:26px; border-radius:6px;"></div>
-            </div>
-            <div class="skeleton-box" style="width:70px; height:36px; border-radius:10px;"></div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 
   <script>
-    const API_URL = "https://script.google.com/macros/s/AKfycbyf9kKiLvAnazrc_3X3riq5QSDaex8Rcrtk_VwxPA6D6jNZCCNAR9O8ibCz9_K1ojPTVA/exec";
-
-    const urlParams = new URLSearchParams(window.location.search);
-    const urlLang = urlParams.get('lang');
-    const currentLang = (urlLang === "ru") ? "ru" : (localStorage.getItem("lang") === "ru" ? "ru" : "kz");
-
-    function updateLangButtons() {
-      document.getElementById("btnKz").classList.toggle("active", currentLang === "kz");
-      document.getElementById("btnRu").classList.toggle("active", currentLang === "ru");
-    }
-    updateLangButtons();
-
-    function changeLang(lang) {
-      if (lang === currentLang) return;
-      localStorage.setItem("lang", lang);
-      const url = new URL(window.location);
-      url.searchParams.set("lang", lang);
-      window.location.href = url.toString();
-    }
-
     const translations = {
       kz: {
-        question: "Не іздеп отырсыз?", placeholder: "Іздеу", cat_work: "Жұмыс", cat_work_sub: "Вакансиялар қарау", cat_worker: "Жұмысшы", cat_worker_sub: "Анкеталар қарау", section_title_vac: "Ұсынылған вакансиялар", section_title_prof: "Ұсынылған анкеталар", show_all: "Бәрі", not_found: "Ештеңе табылмады :(", open_btn: "Ашу", vac_count: " вакансия", prof_count: " анкета",
-        add_title: "Өз хабарландыруыңды қос", add_sub: "Жұмыс немесе жұмысшы іздеу 650₸",
-        reload: "Жаңарту"
+        menu_profile: "Профиль", menu_orders: "Тапсырыстар", menu_settings: "Баптаулар", menu_help: "Көмек",
+        night_mode: "Түнгі режим", addr_label: "Мекенжай", services_title: "Қызметтер",
+        spec_electrician: "Электрик", spec_plumber: "Сантехник", spec_builder: "Жөндеу",
+        spec_garden: "Аула", spec_cleaner: "Тазалық", spec_all: "Барлығы",
+        quick_btn: "Бағасын өзің қой!", quick_desc: "Мамандар 5 минутта жауап береді",
+        active_order: "Белсенді тапсырыс", order_label: "Жұмыста", order_status: "Шебер жолда"
       },
       ru: {
-        question: "Что вы ищете?", placeholder: "Поиск", cat_work: "Работа", cat_work_sub: "Смотреть вакансии", cat_worker: "Работник", cat_worker_sub: "Смотреть анкеты", section_title_vac: "Рекомендуемые вакансии", section_title_prof: "Рекомендуемые анкеты", show_all: "Все", not_found: "Ничего не найдено :(", open_btn: "Открыть", vac_count: " вакансий", prof_count: " анкет",
-        add_title: "Добавить своё объявление", add_sub: "Поиск работы или сотрудников 650₸",
-        reload: "Обновить"
+        menu_profile: "Профиль", menu_orders: "Заказы", menu_settings: "Настройки", menu_help: "Помощь",
+        night_mode: "Ночной режим", addr_label: "Адрес", services_title: "Услуги",
+        spec_electrician: "Электрик", spec_plumber: "Сантехник", spec_builder: "Ремонт",
+        spec_garden: "Двор", spec_cleaner: "Уборка", spec_all: "Все",
+        quick_btn: "Предложи свою цену!", quick_desc: "Мастера ответят за 5 минут",
+        active_order: "Активный заказ", order_label: "В работе", order_status: "Мастер в пути"
       }
     };
 
-    function applyLang() {
-      const t = translations[currentLang];
-      document.querySelectorAll("[data-i18n]").forEach(el => el.textContent = t[el.dataset.i18n]);
-      document.getElementById("q").placeholder = t.placeholder;
-    }
-    applyLang();
+    function setLanguage(lang) {
+      document.querySelectorAll(".lang-pill").forEach(p => p.classList.remove("active"));
+      const pill = document.querySelector(`.lang-pill[data-lang="${lang}"]`);
+      pill.classList.add("active");
+      
+      const glider = pill.closest('.lang-rect').querySelector('.glider');
+      glider.style.width = `${pill.offsetWidth}px`;
+      glider.style.transform = `translateX(${pill.offsetLeft - 4}px)`;
 
-    // --- STATE MANAGEMENT ---
-    const state = { type: "vacancy", q: "", tag: null };
-
-    // --- USER CONTEXT ---
-    try {
-      const userStr = localStorage.getItem('user');
-      if (userStr) {
-        const user = JSON.parse(userStr);
-        if (user.role === 'client') {
-          state.type = 'profile';
-          document.getElementById("catWorker").classList.add("is-active");
-          document.getElementById("catWork").classList.remove("is-active");
-        } else {
-          // Master -> vacancy (default)
-          document.getElementById("catWork").classList.add("is-active");
-          document.getElementById("catWorker").classList.remove("is-active");
-        }
-
-        // Update Greeting
-        const questionEl = document.querySelector('.question');
-        if (questionEl) {
-          const greeting = user.name ? `${user.name}, ` : '';
-          const isRu = currentLang === 'ru';
-          // Master looks for Work (vacancy), Client looks for Worker (profile)
-          let suffix = "";
-          if (user.role === 'client') {
-            suffix = isRu ? "найдите своего мастера" : "өз шеберіңізді табыңыз"; // customized nicely
-          } else {
-            suffix = isRu ? "найдите работу" : "жұмыс табыңыз";
-          }
-          questionEl.textContent = greeting + suffix;
-          questionEl.removeAttribute("data-i18n"); // Prevent overwrite by applyLang for now
-        }
-      }
-    } catch (e) { console.error("User Context Error", e); }
-    let items = [];
-
-    function escapeHtml(s) { return String(s ?? "").replace(/[&<>"']/g, m => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" }[m])); }
-
-    function tagClass(tone) {
-      const map = { cyan: "tag--cyan", pink: "tag--pink", green: "tag--green", purple: "tag--purple", orange: "tag--orange", blue: "tag--blue", yellow: "tag--yellow" };
-      return "tag " + (map[(tone || "").toLowerCase()] || "tag--gray");
-    }
-
-    // --- RENDER CARD (UPDATED) ---
-    function renderCard(x) {
-      const t = translations[currentLang];
-
-      const tagsHtml = (x.tags || []).map(k =>
-        `<span class="${tagClass(k.tone)}" onclick="event.preventDefault(); filterByTag('${escapeHtml(k.text)}')" title="Фильтр">${escapeHtml(k.text)}</span>`
-      ).join("");
-
-      const isVip = x.is_vip == "1";
-      const iconSrc = x.icon || 'https://via.placeholder.com/44';
-
-      return `
-        <article class="card ${isVip ? 'card--vip' : ''}">
-          ${isVip ? `<div class="vip-badge">TOP</div>` : ''}
-          
-          <div class="card__header">
-            <img class="card__icon" src="${iconSrc}" alt="Logo" onerror="this.src='https://via.placeholder.com/44'">
-            <div class="card__meta">
-              <div class="card__title" title="${escapeHtml(x.title)}">${escapeHtml(x.title)}</div>
-              <div class="card__company" title="${escapeHtml(x.subtitle)}">${escapeHtml(x.subtitle)}</div>
-            </div>
-            ${x.salary ? `<div class="card__salary-pill">${escapeHtml(x.salary)}</div>` : ''}
-          </div>
-
-          <div class="card__body">
-            <div class="card__desc">${escapeHtml(x.desc)}</div>
-          </div>
-
-          <div class="card__footer">
-            <div class="card__tags">${tagsHtml}</div>
-            <a class="card__btn" href="card.html?id=${encodeURIComponent(x.id)}&lang=${currentLang}">
-              ${t.open_btn}
-            </a>
-          </div>
-        </article>
-      `;
-    }
-
-    // --- FILTER LOGIC ---
-    function filterByTag(tagName) {
-      state.tag = tagName;
-      state.q = "";
-      document.getElementById("q").value = "";
-      document.getElementById("activeTagText").textContent = "#" + tagName;
-      document.getElementById("activeTagPanel").classList.add("visible");
-      draw();
-    }
-
-    function clearTag() {
-      state.tag = null;
-      document.getElementById("activeTagPanel").classList.remove("visible");
-      draw();
-    }
-
-    // --- SEARCH & DRAW ---
-    function draw() {
-      const q = state.q.trim().toLowerCase();
-,
-, дддддд
-      let list = items.filter(x => {
-        if (x.type !== state.type) return false;
-        if (state.tag) {
-          const hasTag = (x.tags || []).some(t => t.text === state.tag);
-          if (!hasTag) return false;
-        }
-        if (!q) return true;
-
-        const tagString = (x.tags || []).map(t => t.text).join(" ");
-        const hashtagString = (x.hashtags || []).join(" ");
-        const fullText = (x.title + " " + x.subtitle + " " + x.desc + " " + tagString + " " + hashtagString).toLowerCase();
-        return fullText.includes(q);
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.dataset.i18n;
+        if (translations[lang][key]) el.innerText = translations[lang][key];
       });
-
-      list.sort((a, b) => (b.is_vip || 0) - (a.is_vip || 0));
-
-      const container = document.getElementById("cards");
-      const t = translations[currentLang];
-
-      if (list.length === 0 && items.length > 0) {
-        container.innerHTML = `<div style="grid-column: 1/-1; text-align:center; padding: 40px; color:#64748B;">${t.not_found}</div>`;
-      } else if (items.length > 0) {
-        container.innerHTML = list.map(renderCard).join("");
-      }
-
-      document.getElementById("countVac").textContent = items.filter(x => x.type === "vacancy").length + t.vac_count;
-      document.getElementById("countProf").textContent = items.filter(x => x.type === "profile").length + t.prof_count;
-      document.getElementById("sectionTitle").textContent = state.type === "vacancy" ? t.section_title_vac : t.section_title_prof;
+      localStorage.setItem("lang", lang);
     }
 
-    async function loadFromSheets() {
-      try {
-        const res = await fetch(API_URL);
-        const raw = await res.json();
-        items = raw.map(x => ({
-          ...x,
-          type: (x.type || "vacancy").toLowerCase(),
-          is_vip: x.is_vip || 0,
-          tags: [
-            x.tag1 ? { text: String(x.tag1), tone: x.tag1_tone } : null,
-            x.tag2 ? { text: String(x.tag2), tone: x.tag2_tone } : null
-          ].filter(Boolean),
-          hashtags: x.hashtags ? String(x.hashtags).split(',').map(h => h.trim()) : []
-        }));
-        draw();
-      } catch (e) {
-        console.error(e);
-        const t = translations[currentLang];
-        document.getElementById("cards").innerHTML = `<div style="text-align:center; padding:40px; color:#EF4444; grid-column:1/-1;">Error loading data <br><button onclick="loadFromSheets()" style="margin-top:10px; padding:8px 16px; border:1px solid #ccc; border-radius:8px; background:#fff; cursor:pointer">${t.reload}</button></div>`;
-      }
+    const themeCheckbox = document.getElementById('themeCheckbox');
+    themeCheckbox.addEventListener('change', (e) => {
+      const theme = e.target.checked ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+    });
+
+    function toggleMenu() {
+      document.getElementById('sidebar').classList.toggle('active');
+      document.getElementById('sidebarOverlay').classList.toggle('active');
+      setTimeout(() => setLanguage(localStorage.getItem("lang") || "kz"), 50);
     }
 
-    document.getElementById("q").addEventListener("input", (e) => { state.q = e.target.value; draw(); });
-
-    document.getElementById("catWork").onclick = () => {
-      state.type = "vacancy"; clearTag();
-      document.getElementById("catWork").classList.add("is-active");
-      document.getElementById("catWorker").classList.remove("is-active");
-      draw();
-    };
-
-    document.getElementById("catWorker").onclick = () => {
-      state.type = "profile"; clearTag();
-      document.getElementById("catWorker").classList.add("is-active");
-      document.getElementById("catWork").classList.remove("is-active");
-      draw();
-    };
-
-    document.getElementById("showAll").onclick = () => {
-      state.q = "";
-      document.getElementById("q").value = "";
-      clearTag();
-    };
-
-    loadFromSheets();
+    // Init
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    themeCheckbox.checked = (savedTheme === 'dark');
+    window.addEventListener('load', () => setLanguage(localStorage.getItem("lang") || "kz"));
   </script>
 </body>
-
 </html>

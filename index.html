@@ -2,29 +2,24 @@
 <html lang="ru" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sheber.kz | Премиум сервис</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Sheber.kz | Главная</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   
   <style>
-    /* 1. Убирает обводку при фокусе (клике или Tab) для всех элементов */
-*:focus {
-    outline: none !important;
-}
+    /* 1. БАЗА */
+    *:focus { outline: none !important; }
+    * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; font-family: 'Montserrat', sans-serif; background: var(--bg-main); color: var(--text-main); overflow-x: hidden; }
 
-/* 2. Убирает синее выделение (мигание) при нажатии на мобильных телефонах */
-* {
-    -webkit-tap-highlight-color: transparent;
-}
-    /* --- CSS VARIABLES & THEMES --- */
+    /* --- VARIABLES --- */
     :root {
       --accent-green: #00f2a0;
       --accent-blue: #00c9ff;
-      --transition: 0.3s ease;
+      --transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
       
-      /* ФОНЫ (Ваши файлы) */
       --bg-img-desktop: url('/images/background-desktop.png'); 
       --bg-img-mobile: url('/images/background-mobile.png');
     }
@@ -32,493 +27,454 @@
     /* DARK THEME */
     [data-theme="dark"] {
       --bg-main: #010a1a;
-      --bg-overlay: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7));
+      --bg-overlay: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.8));
       --text-main: #ffffff;
-      --text-dim: rgba(255, 255, 255, 0.7);
+      --text-dim: rgba(255, 255, 255, 0.6);
       
-      --glass-bg: rgba(255, 255, 255, 0.05);
+      --glass-bg: rgba(255, 255, 255, 0.08);
       --glass-border: rgba(255, 255, 255, 0.1);
-      --glass-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
       
-      --modal-bg: linear-gradient(160deg, rgba(20, 30, 48, 0.85) 0%, rgba(10, 20, 35, 0.95) 100%);
-      --input-bg: rgba(0, 0, 0, 0.3);
+      --card-bg: linear-gradient(145deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.03) 100%);
+      
+      --menu-bg: #0b1426;
+      --sidebar-border: rgba(255,255,255,0.1);
+      
+      /* Переключатели */
       --switcher-bg: rgba(255, 255, 255, 0.08);
+      --switcher-active-bg: rgba(255, 255, 255, 0.2);
+      --switcher-active-text: #ffffff;
       
-      --switcher-active-bg: rgba(255, 255, 255, 0.15);
-      --switcher-active-text: #fff;
-
-      /* Кнопки Dark */
-      --btn-glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03));
-      --btn-glass-border: rgba(255, 255, 255, 0.15);
-      --btn-accent-bg: linear-gradient(90deg, rgba(0, 242, 160, 0.15), rgba(0, 201, 255, 0.15));
-      --btn-text: #ffffff;
+      --accent-gradient: linear-gradient(135deg, #00f2a0 0%, #00c9ff 100%);
+      --accent-text-color: #010a1a;
     }
 
     /* LIGHT THEME */
     [data-theme="light"] {
-      /* ПЕРЕОПРЕДЕЛЕНИЕ ФОНОВ ДЛЯ СВЕТЛОЙ ТЕМЫ */
       --bg-img-desktop: url('/images/background-desktop-white.png'); 
       --bg-img-mobile: url('/images/background-mobile-white.png');
 
       --bg-main: #f0f4f8;
-      --bg-overlay: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.8));
+      --bg-overlay: linear-gradient(to bottom, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.9));
       --text-main: #1a202c;
       --text-dim: #4a5568;
       
       --glass-bg: rgba(255, 255, 255, 0.65);
-      --glass-border: rgba(255, 255, 255, 0.6); /* Чуть темнее границы для света */
-      --glass-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+      --glass-border: rgba(255, 255, 255, 0.6);
       
-      --modal-bg: linear-gradient(135deg, rgba(255,255,255,0.85), rgba(240,245,250,0.95));
-      --input-bg: rgba(255, 255, 255, 0.5);
+      --card-bg: linear-gradient(145deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.6) 100%);
+
+      --menu-bg: #ffffff;
+      --sidebar-border: rgba(0,0,0,0.1);
+      
+      /* Переключатели */
       --switcher-bg: rgba(0, 0, 0, 0.05);
-      
-      --switcher-active-bg: #fff;
+      --switcher-active-bg: #ffffff;
       --switcher-active-text: #1a202c;
 
-      /* Кнопки Light */
-      --btn-glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.5));
-      --btn-glass-border: rgba(255, 255, 255, 0.8);
-      --btn-accent-bg: linear-gradient(90deg, rgba(0, 242, 160, 0.25), rgba(0, 201, 255, 0.25));
-      --btn-text: #010a1a;
+      --accent-gradient: linear-gradient(135deg, #00f2a0 0%, #00c9ff 100%);
+      --accent-text-color: #010a1a;
     }
 
-    * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
-    html, body { height: 100%; margin: 0; font-family: 'Montserrat', sans-serif; background: var(--bg-main); color: var(--text-main); }
-
-    /* --- ФОН (АДАПТИВ) --- */
-    .start-1 {
+    /* --- КОНТЕЙНЕР --- */
+    .app-container {
       min-height: 100vh;
       position: relative;
       background-image: var(--bg-img-desktop);
       background-size: cover;
       background-position: center;
-      background-repeat: no-repeat;
-      display: flex; flex-direction: column; justify-content: space-between;
-      padding: 28px 24px; 
-      overflow: hidden;
+      background-attachment: fixed;
+      padding: 0;
       transition: background-image 0.3s ease;
     }
-
-    @media (max-width: 768px) { 
-        .start-1 { background-image: var(--bg-img-mobile); } 
-    }
-
-    .start-1::before {
+    .app-container::before {
       content: ""; position: absolute; inset: 0;
       background: var(--bg-overlay);
-      z-index: 1; pointer-events: none;
+      z-index: 0; pointer-events: none;
+    }
+    @media (max-width: 768px) { .app-container { background-image: var(--bg-img-mobile); } }
+
+    /* ОСНОВНОЙ КОНТЕНТ */
+    .main-content {
+        position: relative; z-index: 2;
+        padding: 16px 20px;
+        max-width: 600px; margin: 0 auto;
+        padding-bottom: 100px;
     }
 
-    .top-bar, .hero, .button-continue { position: relative; z-index: 2; }
-
-    /* --- UI ELEMENTS --- */
-    .top-bar { display: flex; justify-content: center; align-items: center; gap: 12px; }
-    
-    .lang-rect, .theme-toggle {
-      display: inline-flex; gap: 4px; padding: 4px;
-      background: var(--switcher-bg); backdrop-filter: blur(15px);
-      border: 1px solid var(--glass-border); border-radius: 100px;
+    /* --- 1. HEADER --- */
+    .header {
+        display: flex; justify-content: space-between; align-items: center;
+        padding: 12px 0 24px 0;
     }
+    .icon-btn {
+        width: 44px; height: 44px; border-radius: 50%;
+        background: var(--glass-bg); border: 1px solid var(--glass-border);
+        display: flex; align-items: center; justify-content: center;
+        cursor: pointer; position: relative; backdrop-filter: blur(10px);
+    }
+    .icon-btn svg { width: 24px; height: 24px; fill: var(--text-main); }
     
+    .notification-dot {
+        position: absolute; top: 10px; right: 10px;
+        width: 8px; height: 8px; background: #ff4757;
+        border-radius: 50%; border: 1px solid var(--menu-bg);
+    }
+
+    .address-selector {
+        display: flex; flex-direction: column; align-items: center; cursor: pointer;
+    }
+    .addr-label { font-size: 10px; color: var(--text-dim); text-transform: uppercase; font-weight: 700; letter-spacing: 1px; }
+    .addr-val { 
+        font-size: 14px; font-weight: 600; color: var(--text-main); 
+        display: flex; align-items: center; gap: 4px; 
+        max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .addr-val svg { width: 12px; height: 12px; fill: var(--accent-green); }
+
+    /* --- 2. SERVICE GRID --- */
+    .section-title { font-size: 18px; font-weight: 800; margin-bottom: 16px; color: var(--text-main); }
+
+    .service-grid {
+        display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 30px;
+    }
+    .service-card {
+        background: var(--card-bg); border: 1px solid var(--glass-border);
+        border-radius: 20px; padding: 16px 8px;
+        display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+        backdrop-filter: blur(10px); cursor: pointer; transition: 0.2s; aspect-ratio: 1 / 1;
+    }
+    .service-card:active { transform: scale(0.96); }
+    .service-icon { width: 40px; height: 40px; object-fit: contain; }
+    [data-theme="dark"] .service-icon { filter: invert(1) brightness(1.5); }
+    .service-name { font-size: 11px; font-weight: 600; text-align: center; line-height: 1.2; }
+
+    /* --- 3. QUICK REQUEST --- */
+    .quick-request-card {
+        background: var(--card-bg); border: 1px solid var(--glass-border);
+        border-radius: 24px; padding: 24px; text-align: center;
+        backdrop-filter: blur(12px); margin-bottom: 30px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    .quick-btn {
+        background: var(--accent-gradient); width: 100%; border: none; padding: 18px;
+        border-radius: 16px; font-size: 16px; font-weight: 800; text-transform: uppercase;
+        color: var(--accent-text-color); box-shadow: 0 10px 20px rgba(0, 242, 160, 0.3);
+        cursor: pointer; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; gap: 8px;
+        transition: 0.3s;
+    }
+    .quick-btn:active { transform: scale(0.98); }
+    .quick-desc { font-size: 13px; color: var(--text-dim); }
+
+    /* --- 4. ACTIVE ORDERS --- */
+    .active-order-card {
+        background: rgba(0, 242, 160, 0.1); border: 1px solid var(--accent-green);
+        border-radius: 20px; padding: 20px; display: flex; justify-content: space-between; align-items: center;
+        backdrop-filter: blur(10px);
+    }
+    .order-info { display: flex; flex-direction: column; gap: 4px; }
+    .order-label { font-size: 11px; color: var(--accent-green); font-weight: 700; text-transform: uppercase; }
+    .order-status { font-size: 16px; font-weight: 700; color: var(--text-main); }
+    .order-sub { font-size: 12px; color: var(--text-dim); }
+    .order-btn {
+        background: var(--glass-bg); border: 1px solid var(--glass-border);
+        width: 40px; height: 40px; border-radius: 12px;
+        display: flex; align-items: center; justify-content: center; color: var(--text-main);
+    }
+
+    /* --- SIDEBAR (MENU) --- */
+    .sidebar-overlay {
+        position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+        z-index: 100; opacity: 0; visibility: hidden; transition: 0.3s;
+        backdrop-filter: blur(4px);
+    }
+    .sidebar-overlay.active { opacity: 1; visibility: visible; }
+
+    .sidebar {
+        position: fixed; top: 0; left: 0; bottom: 0;
+        width: 280px; background: var(--menu-bg);
+        z-index: 101; transform: translateX(-100%); transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        padding: 40px 24px; display: flex; flex-direction: column;
+        border-right: 1px solid var(--sidebar-border);
+        box-shadow: 10px 0 30px rgba(0,0,0,0.1);
+    }
+    .sidebar.active { transform: translateX(0); }
+
+    .user-profile {
+        display: flex; align-items: center; gap: 12px; margin-bottom: 40px;
+    }
+    .avatar {
+        width: 50px; height: 50px; border-radius: 50%;
+        background: var(--glass-bg); border: 2px solid var(--accent-green);
+        display: flex; align-items: center; justify-content: center;
+        font-size: 20px; font-weight: 700; color: var(--text-main);
+    }
+    .user-info .name { font-size: 18px; font-weight: 700; color: var(--text-main); }
+    .user-info .phone { font-size: 12px; color: var(--text-dim); }
+
+    .menu-list { list-style: none; padding: 0; margin: 0; flex: 1; }
+    .menu-item {
+        padding: 16px 0; border-bottom: 1px solid var(--glass-border);
+        color: var(--text-main); font-size: 16px; font-weight: 500;
+        cursor: pointer; display: flex; align-items: center; gap: 12px;
+        transition: 0.2s;
+    }
+    .menu-item:active { opacity: 0.7; transform: translateX(5px); }
+    .menu-item svg { width: 20px; height: 20px; fill: var(--text-dim); }
+
+    /* --- SIDEBAR FOOTER & SWITCHERS --- */
+    .menu-footer {
+        margin-top: auto;
+        padding-top: 20px;
+        display: flex; flex-direction: column; gap: 20px;
+    }
+
+    /* 1. Language Switcher (Glider Style) */
+    .lang-rect {
+        display: flex; position: relative;
+        padding: 4px; background: var(--switcher-bg);
+        border: 1px solid var(--glass-border); border-radius: 100px;
+        overflow: hidden;
+    }
     .lang-pill { 
-      padding: 8px 20px; border-radius: 100px; font-size: 13px; font-weight: 700; 
-      cursor: pointer; transition: var(--transition); color: var(--text-dim); text-transform: uppercase;
+        flex: 1; text-align: center; position: relative; z-index: 2; padding: 10px 0;
+        border-radius: 100px; font-size: 13px; font-weight: 700; 
+        cursor: pointer; color: var(--text-dim); text-transform: uppercase;
+        transition: color 0.3s ease;
     }
-    .lang-pill.active { 
-      background: var(--switcher-active-bg); 
-      color: var(--switcher-active-text); 
-      box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
-      border: 1px solid var(--glass-border);
-    }
-
-    .theme-btn {
-      width: 36px; height: 36px; border-radius: 50%; border: none; background: transparent;
-      cursor: pointer; display: flex; align-items: center; justify-content: center;
-      transition: var(--transition);
-    }
-    .theme-btn:hover { background: var(--glass-bg); }
+    .lang-pill.active { color: var(--switcher-active-text); }
     
-    /* Стили для новых PNG иконок */
-    .theme-btn img { 
-        width: 22px; height: 22px; 
-        transition: var(--transition);
+    .glider {
+        position: absolute; top: 4px; left: 4px; bottom: 4px;
+        /* Ширина задается JS */
+        background: var(--switcher-active-bg); border-radius: 100px; z-index: 1;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+        transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    [data-theme="light"] .glider { border: 1px solid rgba(0,0,0,0.05); }
+
+    /* 2. Theme Toggle (iOS Style) */
+    .theme-switch-row {
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 10px 4px;
+    }
+    .theme-label { font-size: 14px; font-weight: 600; color: var(--text-main); }
+
+    .toggle-switch {
+        position: relative; display: inline-block;
+        width: 52px; height: 30px;
+    }
+    .toggle-switch input { opacity: 0; width: 0; height: 0; }
+    
+    .slider {
+        position: absolute; cursor: pointer;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background-color: var(--switcher-bg);
+        border: 1px solid var(--glass-border);
+        transition: .4s; border-radius: 34px;
+    }
+    .slider:before {
+        position: absolute; content: "";
+        height: 24px; width: 24px;
+        left: 2px; bottom: 2px;
+        background-color: #fff;
+        transition: .4s; border-radius: 50%;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
     
-    /* Инвертируем цвета иконок в темной теме, чтобы черные PNG стали белыми */
-    [data-theme="dark"] .theme-btn img {
-        filter: invert(1) brightness(1.2);
+    /* Active State (Green Accent) */
+    input:checked + .slider {
+        background-color: var(--accent-green);
+        border-color: var(--accent-green);
+    }
+    input:checked + .slider:before {
+        transform: translateX(22px);
     }
 
-    .hero { max-width: 900px; margin: auto; text-align: center; }
-    .sheber-kz { 
-      font-size: clamp(50px, 10vw, 120px); font-weight: 900; line-height: 1; margin-bottom: 24px;
-      background: linear-gradient(135deg, var(--text-main) 30%, var(--accent-green) 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      letter-spacing: -2px;
-      text-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    }
-    .hero-desc { 
-      font-size: clamp(16px, 2.5vw, 24px); line-height: 1.5; color: var(--text-dim); 
-      max-width: 650px; margin: 0 auto; font-weight: 500;
-    }
-
-    /* --- НОВЫЕ СТИЛИ КНОПОК (Глассморфизм) --- */
-    .button-continue { display: flex; justify-content: center; padding-bottom: 40px; }
-    
-    .continue {
-      background: var(--btn-glass-bg);
-      border: 1px solid var(--btn-glass-border);
-      color: var(--btn-text);
-      padding: 24px 60px; 
-      border-radius: 100px; 
-      font-size: 18px; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 2px; text-decoration: none;
-      
-      /* Гласс эффект */
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-      
-      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
-
-    .continue:hover { 
-      transform: translateY(-3px); 
-      box-shadow: 0 15px 40px rgba(0, 242, 160, 0.15); /* Легкое зеленое свечение */
-      border-color: var(--accent-green);
-      letter-spacing: 3px; /* Анимация текста */
-    }
-
-    /* --- MODAL --- */
-    .modal-overlay {
-      position: fixed; inset: 0; background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(8px); z-index: 1000;
-      display: flex; align-items: center; justify-content: center;
-      opacity: 0; visibility: hidden; transition: 0.3s;
-    }
-    .modal-overlay.active { opacity: 1; visibility: visible; }
-    
-    .modal {
-      background: var(--modal-bg);
-      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); /* Сильный блюр фона модалки */
-      border: 1px solid var(--glass-border); border-radius: 32px;
-      width: min(480px, 92%); padding: 48px 32px; position: relative;
-      box-shadow: 0 25px 50px rgba(0,0,0,0.5); text-align: center;
-      max-height: 90vh; overflow-y: auto;
-    }
-
-    .modal-close {
-      position: absolute; top: 20px; right: 20px; background: none; border: none;
-      font-size: 28px; color: var(--text-dim); cursor: pointer; transition: 0.2s;
-    }
-    .modal-close:hover { color: var(--text-main); transform: rotate(90deg); }
-
-    .modal-title { font-size: 32px; font-weight: 800; margin-bottom: 12px; color: var(--text-main); }
-    .modal-desc { font-size: 15px; color: var(--text-dim); margin-bottom: 32px; line-height: 1.6; }
-
-    .input-group { margin-bottom: 20px; text-align: left; }
-    .input-label { font-size: 12px; font-weight: 700; color: var(--accent-green); margin-bottom: 8px; display: block; text-transform: uppercase; letter-spacing: 1px; }
-
-    .modal-input, .modal-select, .modal-textarea {
-      width: 100%; background: var(--input-bg); border: 1px solid var(--glass-border);
-      border-radius: 16px; padding: 16px; color: var(--text-main); font-family: inherit; font-size: 16px;
-      transition: 0.3s; outline: none;
-    }
-    .modal-textarea { resize: vertical; min-height: 80px; }
-    .modal-input:focus, .modal-select:focus, .modal-textarea:focus { 
-      border-color: var(--accent-green); 
-      background: rgba(0, 242, 160, 0.05); /* Легкая подсветка поля */
-    }
-    ::placeholder { color: var(--text-dim); opacity: 0.5; }
-
-    /* Кнопка в модалке - Глассморфизм + Акцент */
-    .modal-btn {
-      width: 100%; 
-      background: var(--btn-accent-bg); /* Прозрачный градиент */
-      border: 1px solid var(--glass-border);
-      padding: 18px; border-radius: 16px; 
-      color: var(--btn-text);
-      font-size: 16px; font-weight: 800; text-transform: uppercase; cursor: pointer;
-      transition: 0.3s; margin-top: 10px;
-      
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    }
-    .modal-btn:hover { 
-      background: linear-gradient(90deg, rgba(0, 242, 160, 0.3), rgba(0, 201, 255, 0.3)); /* Чуть ярче при наведении */
-      border-color: var(--accent-green);
-      transform: scale(1.02); 
-    }
-
-    /* ROLE SELECTION */
-    .role-container { display: flex; gap: 16px; margin-top: 20px; }
-    .role-card {
-      flex: 1; background: var(--glass-bg); border: 1px solid var(--glass-border);
-      padding: 24px 16px; border-radius: 24px; cursor: pointer; transition: 0.3s;
-    }
-    .role-card:hover { border-color: var(--accent-green); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.1); background: rgba(255,255,255,0.08); }
-    .role-icon-circle { 
-      width: 56px; height: 56px; background: rgba(0, 242, 160, 0.1); border-radius: 50%;
-      display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;
-    }
-    .role-icon-circle svg { width: 28px; height: 28px; fill: var(--accent-green); }
-    .role-name { font-weight: 700; font-size: 16px; margin-bottom: 4px; color: var(--text-main); }
-    .role-sub { font-size: 12px; color: var(--text-dim); }
-
-    .modal-step { display: none; }
-    .modal-step.active { display: block; animation: slideUp 0.4s ease-out; }
-    
-    @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-    .resend-link { color: var(--accent-blue); cursor: pointer; font-size: 13px; margin-top: 20px; display: inline-block; font-weight: 600;}
-    
-    #masterFields, #clientFields { display: none; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--glass-border); }
-    
-    .terms { font-size: 11px; color: var(--text-dim); margin-top: 20px; }
-    .terms a { color: var(--accent-green); text-decoration: none; }
   </style>
 </head>
 
 <body>
-  <div class="start-1">
-    <div class="top-bar">
-      <div class="lang-rect">
-        <div class="lang-pill active" data-lang="kz">Қаз</div>
-        <div class="lang-pill" data-lang="ru">Рус</div>
-      </div>
-      
-      <div class="lang-rect">
-        <button class="theme-btn" id="themeToggle">
-          <img class="sun-icon" src="https://cdn-icons-png.flaticon.com/128/66/66275.png" alt="Light Mode" style="display:none">
-          <img class="moon-icon" src="https://cdn-icons-png.flaticon.com/128/702/702471.png" alt="Dark Mode">
-        </button>
-      </div>
-    </div>
-
-    <div class="hero">
-      <div class="sheber-kz" data-i18n="title">Sheber.kz</div>
-      <div class="hero-desc" data-i18n="desc">
-        Қазақстанға арналған шеберлер алаңы: тапсырыс беруші мен шеберді тез байланыстырамыз.
-      </div>
-    </div>
-
-    <div class="button-continue">
-      <a href="#" id="startLink" class="continue" data-i18n="start_btn">Бастау</a>
-    </div>
-  </div>
-
-  <div class="modal-overlay" id="smsModal">
-    <div class="modal">
-      <button class="modal-close" onclick="closeModal()">&times;</button>
-
-      <div class="modal-step active" id="stepPhone">
-        <div class="modal-title" data-i18n="modal_phone_title">Кіру</div>
-        <div class="modal-desc" data-i18n="modal_phone_desc">Жалғастыру үшін телефон нөмірін енгізіңіз</div>
-        <div class="input-group">
-          <label class="input-label" data-i18n="lbl_phone">Телефон</label>
-          <input type="tel" class="modal-input" placeholder="+7 (700) 000-00-00" value="+7" id="phoneInput">
-        </div>
-        <button class="modal-btn" onclick="sendCode()" data-i18n="btn_get_code">Код алу</button>
-        <p class="terms">
-           <span data-i18n="terms_text">Жалғастыра отырып, сіз келісесіз:</span>
-           <a href="#" data-i18n="terms_link">қолдану ережелері</a>
-        </p>
-      </div>
-
-      <div class="modal-step" id="stepCode">
-        <div class="modal-title" data-i18n="modal_code_title">Растау</div>
-        <div class="modal-desc"><span data-i18n="modal_code_desc">Код жіберілді:</span> <strong id="displayPhone" style="color:var(--text-main)"></strong></div>
-        <div class="input-group">
-          <label class="input-label" data-i18n="lbl_code">СМС коды</label>
-          <input type="number" class="modal-input" placeholder="XXXX" id="codeInput">
-        </div>
-        <button class="modal-btn" onclick="verifyCode()" data-i18n="btn_confirm">Растау</button>
-        <div class="resend-link" onclick="backToPhone()" data-i18n="btn_change_phone">Нөмірді өзгерту</div>
-      </div>
-
-      <div class="modal-step" id="stepRole">
-        <div class="modal-title" data-i18n="role_title">Сіз кімсіз?</div>
-        <div class="role-container">
-          <div class="role-card" onclick="chooseRole('client')">
-            <div class="role-icon-circle">
-              <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+  <div class="app-container">
+    
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleMenu()"></div>
+    <div class="sidebar" id="sidebar">
+        <div class="user-profile">
+            <div class="avatar">A</div>
+            <div class="user-info">
+                <div class="name">Азамат</div>
+                <div class="phone">+7 (707) 123-45-67</div>
             </div>
-            <div class="role-name" data-i18n="role_client">Клиент</div>
-            <div class="role-sub" data-i18n="role_client_sub">Шебер іздеймін</div>
-          </div>
-          <div class="role-card" onclick="chooseRole('master')">
-            <div class="role-icon-circle">
-              <svg viewBox="0 0 24 24"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg>
-            </div>
-            <div class="role-name" data-i18n="role_master">Шебер</div>
-            <div class="role-sub" data-i18n="role_master_sub">Клиент іздеймін</div>
-          </div>
         </div>
-      </div>
-
-      <div class="modal-step" id="stepReg">
-        <div class="modal-title" data-i18n="reg_title">Тіркелу</div>
         
-        <div class="input-group">
-          <label class="input-label" data-i18n="lbl_name">Есіміңіз</label>
-          <input type="text" class="modal-input" id="regName" placeholder="Азамат">
-        </div>
+        <ul class="menu-list">
+            <li class="menu-item">
+                <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                Профиль
+            </li>
+            <li class="menu-item">
+                <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                История заказов
+            </li>
+            <li class="menu-item">
+                <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.58 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+                Настройки
+            </li>
+            <li class="menu-item">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>
+                Помощь
+            </li>
+        </ul>
 
-        <div id="clientFields">
-            <div class="input-group">
-                <label class="input-label" data-i18n="lbl_city">Қала / Мекен-жай</label>
-                <input type="text" class="modal-input" id="regCity" placeholder="Алматы, Абай к-сі 10">
+        <div class="menu-footer">
+            <div class="lang-rect" id="sidebarLangRect">
+                <div class="glider"></div>
+                <div class="lang-pill active" data-lang="kz" onclick="setLanguage('kz')">Қазақ тілі</div>
+                <div class="lang-pill" data-lang="ru" onclick="setLanguage('ru')">Русский</div>
+            </div>
+
+            <div class="theme-switch-row">
+                <span class="theme-label">Түнгі режим</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="themeCheckbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <header class="header">
+            <button class="icon-btn" onclick="toggleMenu()">
+                <svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+            </button>
+
+            <div class="address-selector" onclick="changeAddress()">
+                <div class="addr-label">Мекенжай</div>
+                <div class="addr-val">
+                    Астана, Көктал-1... 
+                    <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+                </div>
+            </div>
+
+            <button class="icon-btn">
+                <svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/></svg>
+                <div class="notification-dot"></div>
+            </button>
+        </header>
+
+        <div class="section-title">Қызметтер</div>
+        <div class="service-grid">
+            <div class="service-card">
+                <img src="https://cdn-icons-png.flaticon.com/128/8138/8138943.png" class="service-icon" alt="Electr">
+                <div class="service-name">Электрик</div>
+            </div>
+            <div class="service-card">
+                <img src="https://cdn-icons-png.flaticon.com/128/7583/7583177.png" class="service-icon" alt="Plumb">
+                <div class="service-name">Сантехник</div>
+            </div>
+            <div class="service-card">
+                <img src="https://cdn-icons-png.flaticon.com/128/4479/4479614.png" class="service-icon" alt="Repair">
+                <div class="service-name">Ремонт</div>
+            </div>
+            <div class="service-card">
+                <img src="https://cdn-icons-png.flaticon.com/128/6656/6656767.png" class="service-icon" alt="Garden">
+                <div class="service-name">Аула</div>
+            </div>
+            <div class="service-card">
+                <img src="https://cdn-icons-png.flaticon.com/128/3050/3050809.png" class="service-icon" alt="Clean">
+                <div class="service-name">Тазалық</div>
+            </div>
+            <div class="service-card">
+                <img src="https://cdn-icons-png.flaticon.com/128/3018/3018447.png" class="service-icon" alt="All">
+                <div class="service-name">Барлығы</div>
             </div>
         </div>
 
-        <div id="masterFields">
-          <div class="input-group">
-            <label class="input-label" data-i18n="lbl_spec">Мамандық</label>
-            <select class="modal-select" id="regSpec">
-              <option value="plumber" data-i18n="spec_plumber">Сантехник</option>
-              <option value="electrician" data-i18n="spec_electrician">Электрик</option>
-              <option value="builder" data-i18n="spec_builder">Құрылысшы</option>
-              <option value="cleaner" data-i18n="spec_cleaner">Клининг</option>
-            </select>
-          </div>
-          <div class="input-group">
-            <label class="input-label" data-i18n="lbl_exp">Тәжірибе (жыл)</label>
-            <input type="number" class="modal-input" id="regExp" placeholder="3">
-          </div>
-          <div class="input-group">
-            <label class="input-label" data-i18n="lbl_about">О себе (қысқаша)</label>
-            <textarea class="modal-textarea" id="regAbout" placeholder="..."></textarea>
-          </div>
+        <div class="quick-request-card">
+            <button class="quick-btn">
+                Бағасын өзің қой!
+                <svg viewBox="0 0 24 24" style="width:20px; height:20px; fill:currentColor"><path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z"/></svg>
+            </button>
+            <div class="quick-desc">Мамандар 5 минутта жауап береді</div>
         </div>
 
-        <button class="modal-btn" onclick="finishRegistration()" data-i18n="btn_save">Сақтау</button>
-      </div>
+        <div class="section-title">Активный заказ</div>
+        <div class="active-order-card">
+            <div class="order-info">
+                <div class="order-label">В работе</div>
+                <div class="order-status">Мастер в пути</div>
+                <div class="order-sub">Сантехника • Через 15 мин</div>
+            </div>
+            <div class="order-btn">
+                <svg viewBox="0 0 24 24" style="width:24px; height:24px; fill:currentColor"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+            </div>
+        </div>
     </div>
   </div>
 
   <script>
-    const translations = {
-      kz: {
-        title: "Sheber.kz", desc: "Қазақстанға арналған шеберлер алаңы: тапсырыс беруші мен шеберді тез байланыстырамыз.",
-        start_btn: "Бастау", modal_phone_title: "Кіру", modal_phone_desc: "Жалғастыру үшін телефон нөмірін енгізіңіз",
-        lbl_phone: "Телефон", btn_get_code: "Код алу", modal_code_title: "Растау", modal_code_desc: "Код жіберілді:",
-        lbl_code: "СМС коды", btn_confirm: "Растау", btn_change_phone: "Нөмірді өзгерту",
-        role_title: "Сіз кімсіз?", role_client: "Клиент", role_client_sub: "Шебер іздеймін",
-        role_master: "Шебер", role_master_sub: "Клиент іздеймін", reg_title: "Тіркелу",
-        lbl_name: "Есіміңіз", lbl_spec: "Мамандық", btn_save: "Дайын",
-        spec_plumber: "Сантехник", spec_electrician: "Электрик", spec_builder: "Құрылысшы", spec_cleaner: "Клининг",
-        terms_text: "Жалғастыра отырып, сіз келісесіз:", terms_link: "қолдану ережелері",
-        lbl_city: "Қала / Мекен-жай", lbl_exp: "Тәжірибе (жыл)", lbl_about: "Өзіңіз туралы"
-      },
-      ru: {
-        title: "Sheber.kz", desc: "Платформа мастеров Казахстана: Мы быстро связываем заказчика и мастера.",
-        start_btn: "Начать", modal_phone_title: "Вход", modal_phone_desc: "Введите номер телефона для продолжения",
-        lbl_phone: "Телефон", btn_get_code: "Получить код", modal_code_title: "Подтверждение", modal_code_desc: "Код отправлен на:",
-        lbl_code: "Код из СМС", btn_confirm: "Подтвердить", btn_change_phone: "Изменить номер",
-        role_title: "Кто вы?", role_client: "Заказчик", role_client_sub: "Ищу мастера",
-        role_master: "Мастер", role_master_sub: "Ищу заказы", reg_title: "Регистрация",
-        lbl_name: "Ваше имя", lbl_spec: "Специальность", btn_save: "Готово",
-        spec_plumber: "Сантехник", spec_electrician: "Электрик", spec_builder: "Строитель", spec_cleaner: "Клининг",
-        terms_text: "Продолжая, вы соглашаетесь с", terms_link: "условиями использования",
-        lbl_city: "Город / Адрес", lbl_exp: "Опыт (лет)", lbl_about: "О себе"
-      }
-    };
-
-    let currentRole = 'client';
-
-    function setLanguage(lang) {
-      document.querySelectorAll(".lang-pill").forEach(p => p.classList.toggle("active", p.dataset.lang === lang));
-      document.querySelectorAll("[data-i18n]").forEach(el => {
-        const key = el.dataset.i18n;
-        if (translations[lang][key]) el.innerHTML = translations[lang][key];
-        if (el.placeholder && translations[lang][key]) el.placeholder = translations[lang][key]; 
-      });
-      localStorage.setItem("lang", lang);
-    }
-
-    function toggleTheme() {
-      const html = document.documentElement;
-      const current = html.getAttribute('data-theme');
-      const next = current === 'dark' ? 'light' : 'dark';
-      html.setAttribute('data-theme', next);
-      localStorage.setItem('theme', next);
-      updateThemeIcon(next);
-    }
-
-    function updateThemeIcon(theme) {
-      document.querySelector('.sun-icon').style.display = theme === 'dark' ? 'none' : 'block';
-      document.querySelector('.moon-icon').style.display = theme === 'dark' ? 'block' : 'none';
-    }
-
-    const savedTheme = localStorage.getItem('theme') || 'dark';
-    document.documentElement.setAttribute('data-theme', savedTheme);
-    updateThemeIcon(savedTheme);
-    setLanguage(localStorage.getItem("lang") || "kz");
-
-    const modal = document.getElementById('smsModal');
-    const steps = ['stepPhone', 'stepCode', 'stepRole', 'stepReg'];
-
-    function showStep(stepId) {
-      steps.forEach(id => document.getElementById(id).classList.remove('active'));
-      document.getElementById(stepId).classList.add('active');
-    }
-
-    function openModal(e) { 
-        if(e) e.preventDefault(); 
-        modal.classList.add('active'); 
-        showStep('stepPhone'); 
-    }
-    function closeModal() { modal.classList.remove('active'); }
-    function backToPhone() { showStep('stepPhone'); }
-
-    function sendCode() {
-      if (document.getElementById('phoneInput').value.length < 5) return alert("Нөмірді дұрыс жазыңыз");
-      document.getElementById('displayPhone').textContent = document.getElementById('phoneInput').value;
-      showStep('stepCode');
-    }
-
-    function verifyCode() { 
-        if(document.getElementById('codeInput').value.length > 0) {
-            showStep('stepRole'); 
-        } else {
-            alert("Код енгізіңіз");
-        }
-    }
-
-    function chooseRole(role) {
-      currentRole = role;
-      if (role === 'master') {
-          document.getElementById('masterFields').style.display = 'block';
-          document.getElementById('clientFields').style.display = 'none';
-      } else {
-          document.getElementById('masterFields').style.display = 'none';
-          document.getElementById('clientFields').style.display = 'block';
-      }
-      showStep('stepReg');
-    }
-
-    function finishRegistration() {
-      const name = document.getElementById('regName').value;
-      if (!name) return alert("Атыңызды жазыңыз / Введите имя");
-      console.log("Регистрация завершена:", {
-          role: currentRole,
-          name: name,
-          spec: document.getElementById('regSpec').value,
-          city: document.getElementById('regCity').value
-      });
-      alert("Сәтті тіркелу! / Успешная регистрация!");
-      closeModal();
-    }
-
-    document.getElementById('startLink').addEventListener('click', openModal);
-    document.getElementById('themeToggle').addEventListener('click', toggleTheme);
-    document.querySelectorAll(".lang-pill").forEach(p => p.addEventListener("click", () => setLanguage(p.dataset.lang)));
+    // --- 1. THEME LOGIC ---
+    const themeCheckbox = document.getElementById('themeCheckbox');
     
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) closeModal();
+    function setTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      themeCheckbox.checked = (theme === 'dark'); 
+    }
+
+    themeCheckbox.addEventListener('change', (e) => {
+        setTheme(e.target.checked ? 'dark' : 'light');
     });
+
+    // Init Theme
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    setTheme(savedTheme);
+
+
+    // --- 2. LANGUAGE LOGIC (GLIDER) ---
+    function setLanguage(lang) {
+        // Убираем active у всех
+        document.querySelectorAll(".lang-pill").forEach(p => p.classList.remove("active"));
+        
+        // Находим выбранные кнопки (по data-lang)
+        const activePills = document.querySelectorAll(`.lang-pill[data-lang="${lang}"]`);
+        
+        activePills.forEach(p => {
+            p.classList.add("active");
+            
+            // Двигаем глайдер
+            const parent = p.closest('.lang-rect');
+            const glider = parent.querySelector('.glider');
+            if (glider) {
+                glider.style.width = `${p.offsetWidth}px`;
+                glider.style.transform = `translateX(${p.offsetLeft - 4}px)`; // -4 padding
+            }
+        });
+        
+        localStorage.setItem("lang", lang);
+    }
+
+    // Init Language
+    window.addEventListener('load', () => {
+        setLanguage(localStorage.getItem("lang") || "kz");
+    });
+
+
+    // --- 3. MENU LOGIC ---
+    function toggleMenu() {
+        document.getElementById('sidebar').classList.toggle('active');
+        document.getElementById('sidebarOverlay').classList.toggle('active');
+        
+        // Пересчет глайдера при открытии меню (чтобы ширина была корректной)
+        setTimeout(() => {
+            const currentLang = localStorage.getItem("lang") || "kz";
+            setLanguage(currentLang);
+        }, 50);
+    }
+
+    function changeAddress() {
+        alert("Здесь откроется выбор адреса");
+    }
   </script>
 </body>
 </html>
