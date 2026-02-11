@@ -7,23 +7,20 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  
+
   <style>
-    /* 1. БАЗА */
     *:focus { outline: none !important; }
     * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
     html, body { height: 100%; margin: 0; font-family: 'Montserrat', sans-serif; background: var(--bg-main); color: var(--text-main); overflow-x: hidden; }
 
-    /* --- VARIABLES --- */
     :root {
       --accent-green: #00f2a0;
       --accent-blue: #00c9ff;
       --transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-      --bg-img-desktop: url('/images/background-desktop-1.png'); 
+      --bg-img-desktop: url('/images/background-desktop-1.png');
       --bg-img-mobile: url('/images/background-mobile-1.png');
     }
 
-    /* DARK THEME */
     [data-theme="dark"] {
       --bg-main: #010a1a;
       --bg-overlay: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.8));
@@ -41,9 +38,8 @@
       --accent-text-color: #010a1a;
     }
 
-    /* LIGHT THEME */
     [data-theme="light"] {
-      --bg-img-desktop: url('/images/background-desktop-white-1.png'); 
+      --bg-img-desktop: url('/images/background-desktop-white-1.png');
       --bg-img-mobile: url('/images/background-mobile-white-1.png');
       --bg-main: #f0f4f8;
       --bg-overlay: linear-gradient(to bottom, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.9));
@@ -75,23 +71,25 @@
       background: var(--bg-overlay);
       z-index: 0; pointer-events: none;
     }
-    @media (max-width: 768px) { .app-container { background-image: var(--bg-img-mobile); } }
+    @media (max-width: 768px) { .app-container { background-image: var(--bg-img-mobile); background-attachment: scroll; } }
 
     .main-content {
-        position: relative; z-index: 2;
-        padding: 16px 20px;
-        max-width: 600px; margin: 0 auto;
-        padding-bottom: 100px;
+      position: relative; z-index: 2;
+      padding: 16px 20px;
+      max-width: 600px; margin: 0 auto;
+      padding-bottom: 140px;
     }
 
     /* HEADER */
     .header { display: flex; justify-content: space-between; align-items: center; padding: 12px 0 24px 0; }
     .icon-btn {
-        width: 44px; height: 44px; border-radius: 50%;
-        background: var(--glass-bg); border: 1px solid var(--glass-border);
-        display: flex; align-items: center; justify-content: center;
-        cursor: pointer; position: relative; backdrop-filter: blur(10px);
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--glass-bg); border: 1px solid var(--glass-border);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; position: relative; backdrop-filter: blur(10px);
+      transition: transform 0.12s ease;
     }
+    .icon-btn:active { transform: scale(0.96); }
     .icon-btn svg { width: 24px; height: 24px; fill: var(--text-main); }
     .notification-dot { position: absolute; top: 10px; right: 10px; width: 8px; height: 8px; background: #ff4757; border-radius: 50%; border: 1px solid var(--menu-bg); }
 
@@ -104,10 +102,11 @@
     .section-title { font-size: 18px; font-weight: 800; margin-bottom: 16px; color: var(--text-main); }
     .service-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 30px; }
     .service-card {
-        background: var(--card-bg); border: 1px solid var(--glass-border);
-        border-radius: 20px; padding: 16px 8px;
-        display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
-        backdrop-filter: blur(10px); cursor: pointer; transition: 0.2s; aspect-ratio: 1 / 1;
+      background: var(--card-bg); border: 1px solid var(--glass-border);
+      border-radius: 20px; padding: 16px 8px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+      backdrop-filter: blur(10px); cursor: pointer; transition: 0.2s; aspect-ratio: 1 / 1;
+      user-select: none;
     }
     .service-card:active { transform: scale(0.96); }
     .service-icon { width: 40px; height: 40px; object-fit: contain; }
@@ -116,152 +115,500 @@
 
     /* QUICK REQ */
     .quick-request-card {
-        background: var(--card-bg); border: 1px solid var(--glass-border);
-        border-radius: 24px; padding: 24px; text-align: center;
-        backdrop-filter: blur(12px); margin-bottom: 30px;
+      background: var(--card-bg); border: 1px solid var(--glass-border);
+      border-radius: 24px; padding: 24px; text-align: center;
+      backdrop-filter: blur(12px); margin-bottom: 30px;
     }
     .quick-btn {
-        background: var(--accent-gradient); width: 100%; border: none; padding: 18px;
-        border-radius: 16px; font-size: 16px; font-weight: 800; text-transform: uppercase;
-        color: var(--accent-text-color); box-shadow: 0 10px 20px rgba(0, 242, 160, 0.3);
-        cursor: pointer; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; gap: 8px;
+      background: var(--accent-gradient); width: 100%; border: none; padding: 18px;
+      border-radius: 16px; font-size: 16px; font-weight: 800; text-transform: uppercase;
+      color: var(--accent-text-color); box-shadow: 0 10px 20px rgba(0, 242, 160, 0.3);
+      cursor: pointer; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; gap: 8px;
+      transition: transform 0.15s ease;
     }
+    .quick-btn:active { transform: scale(0.98); }
     .quick-desc { font-size: 13px; color: var(--text-dim); }
+
+    /* ACTIVE ORDER */
+    .active-order-card{
+      background: var(--card-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      padding: 18px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      backdrop-filter: blur(12px);
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .active-order-card:active { transform: scale(0.99); }
+    .order-info { display: flex; flex-direction: column; gap: 6px; }
+    .order-label{
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--accent-green);
+    }
+    .order-status{
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .order-btn{
+      width: 44px; height: 44px;
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      color: var(--text-main);
+    }
 
     /* SIDEBAR */
     .sidebar-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 100; opacity: 0; visibility: hidden; transition: 0.3s; backdrop-filter: blur(4px); }
     .sidebar-overlay.active { opacity: 1; visibility: visible; }
     .sidebar {
-        position: fixed; top: 0; left: 0; bottom: 0; width: 280px; background: var(--menu-bg);
-        z-index: 101; transform: translateX(-100%); transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-        padding: 40px 24px; display: flex; flex-direction: column; border-right: 1px solid var(--sidebar-border);
+      position: fixed; top: 0; left: 0; bottom: 0; width: 280px; background: var(--menu-bg);
+      z-index: 101; transform: translateX(-100%); transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      padding: 28px 24px; /* было 40px — подняли контент */
+      display: flex; flex-direction: column;
+      border-right: 1px solid var(--sidebar-border);
+      gap: 18px; /* меньше пустоты */
     }
     .sidebar.active { transform: translateX(0); }
+
     .avatar { width: 50px; height: 50px; border-radius: 50%; background: var(--glass-bg); border: 2px solid var(--accent-green); display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700; }
-    .menu-list { list-style: none; padding: 0; margin: 40px 0; flex: 1; }
-    .menu-item { padding: 16px 0; border-bottom: 1px solid var(--glass-border); color: var(--text-main); display: flex; align-items: center; gap: 12px; cursor: pointer; }
+
+    .menu-list { list-style: none; padding: 0; margin: 14px 0 0 0; flex: 0; } /* убрали огромный gap сверху и flex:1 */
+    .menu-item {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--glass-border);
+      color: var(--text-main);
+      display: flex; align-items: center; gap: 12px;
+      cursor: pointer; user-select: none;
+    }
+    .menu-item:active { opacity: 0.8; }
     .menu-item svg { width: 20px; height: 20px; fill: var(--text-dim); }
 
-    /* SWITCHERS */
-    .menu-footer { margin-top: auto; padding-top: 20px; display: flex; flex-direction: column; gap: 20px; }
-    .lang-rect { display: flex; position: relative; padding: 4px; background: var(--switcher-bg); border: 1px solid var(--glass-border); border-radius: 100px; overflow: hidden; }
-    .lang-pill { flex: 1; text-align: center; position: relative; z-index: 2; padding: 10px 0; font-size: 13px; font-weight: 700; cursor: pointer; color: var(--text-dim); transition: 0.3s; }
+    /* SWITCHERS: подняли вверх и убрали расстояния */
+    .menu-footer {
+      margin-top: 16px;      /* было auto — теперь не прижимает к низу */
+      padding-top: 0;        /* убрали лишнее */
+      display: flex;
+      flex-direction: column;
+      gap: 12px;             /* было 20 */
+    }
+
+    .lang-rect {
+      display: flex; position: relative;
+      padding: 4px;
+      background: var(--switcher-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 100px;
+      overflow: hidden;
+    }
+    .lang-pill {
+      flex: 1; text-align: center; position: relative; z-index: 2;
+      padding: 10px 0; font-size: 13px; font-weight: 700;
+      cursor: pointer; color: var(--text-dim); transition: 0.3s;
+      user-select:none;
+    }
     .lang-pill.active { color: var(--switcher-active-text); }
     .glider { position: absolute; top: 4px; left: 4px; bottom: 4px; background: var(--switcher-active-bg); border-radius: 100px; z-index: 1; transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); }
-    
-    .theme-switch-row { display: flex; align-items: center; justify-content: space-between; }
+
+    .theme-switch-row { display: flex; align-items: center; justify-content: space-between; padding-top: 2px; }
     .toggle-switch { position: relative; width: 52px; height: 30px; }
     .toggle-switch input { opacity: 0; width: 0; height: 0; }
     .slider { position: absolute; cursor: pointer; inset: 0; background-color: var(--switcher-bg); border: 1px solid var(--glass-border); transition: .4s; border-radius: 34px; }
     .slider:before { position: absolute; content: ""; height: 24px; width: 24px; left: 2px; bottom: 2px; background-color: #fff; transition: .4s; border-radius: 50%; }
     input:checked + .slider { background-color: var(--accent-green); border-color: var(--accent-green); }
     input:checked + .slider:before { transform: translateX(22px); }
+
+    /* BOTTOM NAV */
+    .bottom-bar {
+      position: fixed;
+      left: 50%;
+      bottom: 14px;
+      transform: translateX(-50%);
+      width: min(620px, calc(100% - 24px));
+      z-index: 120;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-radius: 24px;
+      padding: 10px 12px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      align-items: center;
+      box-shadow: 0 18px 55px rgba(0,0,0,0.28);
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 10px;
+      border-radius: 18px;
+      cursor: pointer;
+      user-select: none;
+      transition: 0.15s ease;
+      color: var(--text-dim);
+    }
+    .nav-item:active { transform: scale(0.98); }
+    .nav-item svg { width: 22px; height: 22px; fill: currentColor; }
+    .nav-label { font-size: 11px; font-weight: 700; }
+
+    .nav-item.active {
+      color: var(--text-main);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    [data-theme="light"] .nav-item.active {
+      background: rgba(0,0,0,0.04);
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .nav-create { margin-top: -24px; padding: 0; }
+    .create-btn {
+      width: 62px; height: 62px;
+      border-radius: 22px;
+      border: none;
+      cursor: pointer;
+      background: var(--accent-gradient);
+      color: var(--accent-text-color);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 18px 35px rgba(0, 242, 160, 0.28);
+      transition: transform 0.15s ease;
+    }
+    .create-btn:active { transform: scale(0.96); }
+    .create-btn svg { width: 28px; height: 28px; fill: currentColor; }
+    .create-label { margin-top: 8px; font-size: 11px; font-weight: 800; color: var(--text-main); }
+
+    /* TOAST (оставляем только где нужно) */
+    .toast-wrap{
+      position: fixed;
+      left: 50%;
+      bottom: 96px;
+      transform: translateX(-50%);
+      z-index: 200;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      pointer-events: none;
+      padding: 0 12px;
+      width: min(520px, 92%);
+    }
+    .toast {
+      pointer-events: auto;
+      background: rgba(0,0,0,0.55);
+      border: 1px solid rgba(255,255,255,0.14);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      color: var(--text-main);
+      border-radius: 16px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      box-shadow: 0 12px 35px rgba(0,0,0,0.35);
+      opacity: 0;
+      transform: translateY(12px);
+      transition: 0.25s ease;
+      font-size: 14px;
+      line-height: 1.35;
+    }
+    [data-theme="light"] .toast{
+      background: rgba(255,255,255,0.78);
+      border: 1px solid rgba(0,0,0,0.08);
+      color: #1a202c;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast .left { display: flex; align-items: center; gap: 10px; min-width: 0; }
+    .toast .dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--accent-blue);
+      flex: 0 0 auto;
+      box-shadow: 0 0 0 4px rgba(0,201,255,0.12);
+    }
+    .toast.success .dot { background: var(--accent-green); box-shadow: 0 0 0 4px rgba(0,242,160,0.12); }
+    .toast.warn .dot { background: #ffcc00; box-shadow: 0 0 0 4px rgba(255,204,0,0.14); }
+    .toast .msg { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 700; }
+    .toast .close { background: transparent; border: none; color: inherit; cursor: pointer; font-size: 18px; line-height: 1; opacity: 0.85; padding: 0 4px; }
+    .toast .close:hover { opacity: 1; }
+
+    /* Skeleton shimmer (оставляем) */
+    .skeleton {
+      position: relative;
+      overflow: hidden;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--glass-border);
+    }
+    [data-theme="light"] .skeleton { background: rgba(0,0,0,0.04); }
+    .skeleton::after{
+      content:"";
+      position:absolute; inset:0;
+      transform: translateX(-120%);
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+      animation: shimmer 1.2s infinite;
+    }
+    @keyframes shimmer { 100% { transform: translateX(120%); } }
+
+    .active-order-card.loading { pointer-events: none; }
+    .active-order-card.loading .order-label,
+    .active-order-card.loading .order-status,
+    .active-order-card.loading .order-btn { opacity: 0; }
+    .active-order-card.loading { min-height: 78px; }
   </style>
 </head>
 
 <body>
   <div class="app-container">
-    
+
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleMenu()"></div>
     <div class="sidebar" id="sidebar">
-        <div class="user-profile" style="display:flex; align-items:center; gap:12px;">
-            <div class="avatar">A</div>
-            <div class="user-info">
-                <div class="name" style="font-weight:700">Азамат</div>
-                <div class="phone" style="font-size:12px; color:var(--text-dim)">+7 (707) 123-45-67</div>
-            </div>
+      <div class="user-profile" style="display:flex; align-items:center; gap:12px;">
+        <div class="avatar">A</div>
+        <div class="user-info">
+          <div class="name" style="font-weight:700">Азамат</div>
+          <div class="phone" style="font-size:12px; color:var(--text-dim)">+7 (707) 123-45-67</div>
         </div>
-        
-        <ul class="menu-list">
-            <li class="menu-item"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg> <span data-i18n="menu_profile">Профиль</span></li>
-            <li class="menu-item"><svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg> <span data-i18n="menu_orders">История заказов</span></li>
-            <li class="menu-item"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.58 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg> <span data-i18n="menu_settings">Настройки</span></li>
-            <li class="menu-item"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg> <span data-i18n="menu_help">Помощь</span></li>
-        </ul>
+      </div>
 
-        <div class="menu-footer">
-            <div class="lang-rect" id="sidebarLangRect">
-                <div class="glider"></div>
-                <div class="lang-pill active" data-lang="kz" onclick="setLanguage('kz')">Қаз</div>
-                <div class="lang-pill" data-lang="ru" onclick="setLanguage('ru')">Рус</div>
-            </div>
-            <div class="theme-switch-row">
-                <span class="theme-label" data-i18n="night_mode">Түнгі режим</span>
-                <label class="toggle-switch"><input type="checkbox" id="themeCheckbox"><span class="slider"></span></label>
-            </div>
+      <ul class="menu-list">
+        <li class="menu-item" onclick="openProfile()">
+          <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+          <span data-i18n="menu_profile">Профиль</span>
+        </li>
+        <li class="menu-item" onclick="showToast(t('menu_orders') + ' — скоро', 'info')">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+          <span data-i18n="menu_orders">История заказов</span>
+        </li>
+        <li class="menu-item" onclick="showToast(t('menu_settings') + ' — скоро', 'info')">
+          <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.58 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+          <span data-i18n="menu_settings">Настройки</span>
+        </li>
+        <li class="menu-item" onclick="showToast(t('menu_help') + ' — скоро', 'info')">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>
+          <span data-i18n="menu_help">Помощь</span>
+        </li>
+      </ul>
+
+      <div class="menu-footer">
+        <div class="lang-rect" id="sidebarLangRect">
+          <div class="glider"></div>
+          <div class="lang-pill active" data-lang="kz" onclick="setLanguage('kz')">Қаз</div>
+          <div class="lang-pill" data-lang="ru" onclick="setLanguage('ru')">Рус</div>
         </div>
+        <div class="theme-switch-row">
+          <span class="theme-label" data-i18n="night_mode">Түнгі режим</span>
+          <label class="toggle-switch"><input type="checkbox" id="themeCheckbox"><span class="slider"></span></label>
+        </div>
+      </div>
     </div>
 
     <div class="main-content">
-        <header class="header">
-            <button class="icon-btn" onclick="toggleMenu()"><svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg></button>
-            <div class="address-selector">
-                <div class="addr-label" data-i18n="addr_label">Мекенжай</div>
-                <div class="addr-val">Астана, Көктал-1 <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg></div>
-            </div>
-            <button class="icon-btn"><svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/></svg><div class="notification-dot"></div></button>
-        </header>
+      <header class="header">
+        <button class="icon-btn" onclick="toggleMenu()">
+          <svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+        </button>
 
-        <div class="section-title" data-i18n="services_title">Қызметтер</div>
-        <div class="service-grid">
-            <div class="service-card"><img src="https://cdn-icons-png.flaticon.com/128/8138/8138943.png" class="service-icon"><div class="service-name" data-i18n="spec_electrician">Электрик</div></div>
-            <div class="service-card"><img src="https://cdn-icons-png.flaticon.com/128/7583/7583177.png" class="service-icon"><div class="service-name" data-i18n="spec_plumber">Сантехник</div></div>
-            <div class="service-card"><img src="https://cdn-icons-png.flaticon.com/128/4479/4479614.png" class="service-icon"><div class="service-name" data-i18n="spec_builder">Ремонт</div></div>
-            <div class="service-card"><img src="https://cdn-icons-png.flaticon.com/128/6656/6656767.png" class="service-icon"><div class="service-name" data-i18n="spec_garden">Аула</div></div>
-            <div class="service-card"><img src="https://cdn-icons-png.flaticon.com/128/3050/3050809.png" class="service-icon"><div class="service-name" data-i18n="spec_cleaner">Тазалық</div></div>
-            <div class="service-card"><img src="https://cdn-icons-png.flaticon.com/128/3018/3018447.png" class="service-icon"><div class="service-name" data-i18n="spec_all">Барлығы</div></div>
+        <div class="address-selector">
+          <div class="addr-label" data-i18n="addr_label">Мекенжай</div>
+          <div class="addr-val">Астана, Көктал-1
+            <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+          </div>
         </div>
 
-        <div class="quick-request-card">
-            <button class="quick-btn" data-i18n="quick_btn">Бағасын өзің қой!</button>
-            <div class="quick-desc" data-i18n="quick_desc">Мамандар 5 минутта жауап береді</div>
-        </div>
+        <button class="icon-btn" onclick="showToast('Уведомления — скоро', 'info')">
+          <svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/></svg>
+          <div class="notification-dot"></div>
+        </button>
+      </header>
 
-        <div class="section-title" data-i18n="active_order">Активный заказ</div>
-        <div class="active-order-card">
-            <div class="order-info">
-                <div class="order-label" data-i18n="order_label">В работе</div>
-                <div class="order-status" data-i18n="order_status">Мастер в пути</div>
-            </div>
-            <div class="order-btn"><svg viewBox="0 0 24 24" style="width:24px; fill:currentColor"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg></div>
+      <div class="section-title" data-i18n="services_title">Қызметтер</div>
+      <div class="service-grid">
+        <div class="service-card" onclick="showToast(t('spec_electrician'), 'info')">
+          <img src="https://cdn-icons-png.flaticon.com/128/8138/8138943.png" class="service-icon">
+          <div class="service-name" data-i18n="spec_electrician">Электрик</div>
         </div>
+        <div class="service-card" onclick="showToast(t('spec_plumber'), 'info')">
+          <img src="https://cdn-icons-png.flaticon.com/128/7583/7583177.png" class="service-icon">
+          <div class="service-name" data-i18n="spec_plumber">Сантехник</div>
+        </div>
+        <div class="service-card" onclick="showToast(t('spec_builder'), 'info')">
+          <img src="https://cdn-icons-png.flaticon.com/128/4479/4479614.png" class="service-icon">
+          <div class="service-name" data-i18n="spec_builder">Ремонт</div>
+        </div>
+        <div class="service-card" onclick="showToast(t('spec_garden'), 'info')">
+          <img src="https://cdn-icons-png.flaticon.com/128/6656/6656767.png" class="service-icon">
+          <div class="service-name" data-i18n="spec_garden">Аула</div>
+        </div>
+        <div class="service-card" onclick="showToast(t('spec_cleaner'), 'info')">
+          <img src="https://cdn-icons-png.flaticon.com/128/3050/3050809.png" class="service-icon">
+          <div class="service-name" data-i18n="spec_cleaner">Тазалық</div>
+        </div>
+        <div class="service-card" onclick="showToast(t('spec_all'), 'info')">
+          <img src="https://cdn-icons-png.flaticon.com/128/3018/3018447.png" class="service-icon">
+          <div class="service-name" data-i18n="spec_all">Барлығы</div>
+        </div>
+      </div>
+
+      <div class="quick-request-card">
+        <button class="quick-btn" onclick="openCreate()">
+          <svg viewBox="0 0 24 24" style="width:20px; height:20px; fill:currentColor"><path d="M19 11H13V5h-2v6H5v2h6v6h2v-6h6z"/></svg>
+          <span data-i18n="quick_btn">Бағасын өзің қой!</span>
+        </button>
+        <div class="quick-desc" data-i18n="quick_desc">Мамандар 5 минутта жауап береді</div>
+      </div>
+
+      <div class="section-title" data-i18n="active_order">Активный заказ</div>
+      <div class="active-order-card loading skeleton" id="activeOrderCard">
+        <div class="order-info">
+          <div class="order-label" data-i18n="order_label">В работе</div>
+          <div class="order-status" data-i18n="order_status">Мастер в пути</div>
+        </div>
+        <div class="order-btn">
+          <svg viewBox="0 0 24 24" style="width:24px; fill:currentColor"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+        </div>
+      </div>
     </div>
+
+    <!-- TOAST -->
+    <div class="toast-wrap" id="toastWrap" aria-live="polite" aria-atomic="true"></div>
+
+    <!-- BOTTOM BAR -->
+    <nav class="bottom-bar" id="bottomBar">
+      <div class="nav-item active" id="navHome" onclick="setTab('home')">
+        <svg viewBox="0 0 24 24"><path d="M12 3l9 8h-3v10h-5v-6H11v6H6V11H3l9-8z"/></svg>
+        <div class="nav-label" data-i18n="tab_home">Главная</div>
+      </div>
+
+      <div class="nav-item nav-create" onclick="openCreate()">
+        <button class="create-btn" aria-label="create">
+          <svg viewBox="0 0 24 24"><path d="M19 11H13V5h-2v6H5v2h6v6h2v-6h6z"/></svg>
+        </button>
+        <div class="create-label" data-i18n="tab_create">Создать</div>
+      </div>
+
+      <div class="nav-item" id="navProfile" onclick="setTab('profile')">
+        <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        <div class="nav-label" data-i18n="tab_profile">Профиль</div>
+      </div>
+    </nav>
+
   </div>
 
   <script>
     const translations = {
       kz: {
-        menu_profile: "Профиль", menu_orders: "Тапсырыстар", menu_settings: "Баптаулар", menu_help: "Көмек",
-        night_mode: "Түнгі режим", addr_label: "Мекенжай", services_title: "Қызметтер",
-        spec_electrician: "Электрик", spec_plumber: "Сантехник", spec_builder: "Жөндеу",
-        spec_garden: "Аула", spec_cleaner: "Тазалық", spec_all: "Барлығы",
-        quick_btn: "Бағасын өзің қой!", quick_desc: "Мамандар 5 минутта жауап береді",
-        active_order: "Белсенді тапсырыс", order_label: "Жұмыста", order_status: "Шебер жолда"
+        menu_profile: "Профиль",
+        menu_orders: "Тапсырыстар",
+        menu_settings: "Баптаулар",
+        menu_help: "Көмек",
+        night_mode: "Түнгі режим",
+        addr_label: "Мекенжай",
+        services_title: "Қызметтер",
+        spec_electrician: "Электрик",
+        spec_plumber: "Сантехник",
+        spec_builder: "Жөндеу",
+        spec_garden: "Аула",
+        spec_cleaner: "Тазалық",
+        spec_all: "Барлығы",
+        quick_btn: "Бағасын өзің қой!",
+        quick_desc: "Мамандар 5 минутта жауап береді",
+        active_order: "Белсенді тапсырыс",
+        order_label: "Жұмыста",
+        order_status: "Шебер жолда",
+        tab_home: "Басты",
+        tab_create: "Қосу",
+        tab_profile: "Профиль"
       },
       ru: {
-        menu_profile: "Профиль", menu_orders: "Заказы", menu_settings: "Настройки", menu_help: "Помощь",
-        night_mode: "Ночной режим", addr_label: "Адрес", services_title: "Услуги",
-        spec_electrician: "Электрик", spec_plumber: "Сантехник", spec_builder: "Ремонт",
-        spec_garden: "Двор", spec_cleaner: "Уборка", spec_all: "Все",
-        quick_btn: "Предложи свою цену!", quick_desc: "Мастера ответят за 5 минут",
-        active_order: "Активный заказ", order_label: "В работе", order_status: "Мастер в пути"
+        menu_profile: "Профиль",
+        menu_orders: "Заказы",
+        menu_settings: "Настройки",
+        menu_help: "Помощь",
+        night_mode: "Ночной режим",
+        addr_label: "Адрес",
+        services_title: "Услуги",
+        spec_electrician: "Электрик",
+        spec_plumber: "Сантехник",
+        spec_builder: "Ремонт",
+        spec_garden: "Двор",
+        spec_cleaner: "Уборка",
+        spec_all: "Все",
+        quick_btn: "Предложи свою цену!",
+        quick_desc: "Мастера ответят за 5 минут",
+        active_order: "Активный заказ",
+        order_label: "В работе",
+        order_status: "Мастер в пути",
+        tab_home: "Главная",
+        tab_create: "Создать",
+        tab_profile: "Профиль"
       }
     };
+
+    /* TOAST: используем только где реально нужно */
+    const toastWrap = document.getElementById('toastWrap');
+    function showToast(message, type = 'info', timeout = 2200) {
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      toast.innerHTML = `
+        <div class="left">
+          <div class="dot"></div>
+          <div class="msg">${escapeHtml(message)}</div>
+        </div>
+        <button class="close" aria-label="close">&times;</button>
+      `;
+      toastWrap.appendChild(toast);
+      requestAnimationFrame(() => toast.classList.add('show'));
+
+      const remove = () => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 250);
+      };
+      toast.querySelector('.close').addEventListener('click', remove);
+      setTimeout(remove, timeout);
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replaceAll('&','&amp;')
+        .replaceAll('<','&lt;')
+        .replaceAll('>','&gt;')
+        .replaceAll('"','&quot;')
+        .replaceAll("'",'&#039;');
+    }
+
+    function t(key) {
+      const lang = localStorage.getItem("lang") || "kz";
+      return (translations[lang] && translations[lang][key]) ? translations[lang][key] : key;
+    }
 
     function setLanguage(lang) {
       document.querySelectorAll(".lang-pill").forEach(p => p.classList.remove("active"));
       const pill = document.querySelector(`.lang-pill[data-lang="${lang}"]`);
-      pill.classList.add("active");
-      
-      const glider = pill.closest('.lang-rect').querySelector('.glider');
-      glider.style.width = `${pill.offsetWidth}px`;
-      glider.style.transform = `translateX(${pill.offsetLeft - 4}px)`;
+      if (pill) pill.classList.add("active");
+
+      const glider = pill ? pill.closest('.lang-rect').querySelector('.glider') : null;
+      if (glider && pill) {
+        glider.style.width = `${pill.offsetWidth}px`;
+        glider.style.transform = `translateX(${pill.offsetLeft - 4}px)`;
+      }
 
       document.querySelectorAll("[data-i18n]").forEach(el => {
         const key = el.dataset.i18n;
-        if (translations[lang][key]) el.innerText = translations[lang][key];
+        if (translations[lang] && translations[lang][key]) el.innerText = translations[lang][key];
       });
       localStorage.setItem("lang", lang);
+
+      // ✅ Никаких тостов тут (убрали)
     }
 
     const themeCheckbox = document.getElementById('themeCheckbox');
@@ -269,6 +616,8 @@
       const theme = e.target.checked ? 'dark' : 'light';
       document.documentElement.setAttribute('data-theme', theme);
       localStorage.setItem('theme', theme);
+
+      // ✅ тоже без тоста (убрали)
     });
 
     function toggleMenu() {
@@ -277,11 +626,52 @@
       setTimeout(() => setLanguage(localStorage.getItem("lang") || "kz"), 50);
     }
 
+    function setTab(tab) {
+      document.getElementById('navHome').classList.toggle('active', tab === 'home');
+      document.getElementById('navProfile').classList.toggle('active', tab === 'profile');
+
+      if (tab === 'home') window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (tab === 'profile') openProfile();
+    }
+
+    function openCreate() {
+      // Здесь потом заменишь на create.html
+      showToast('Создание заказа — скоро', 'info');
+    }
+
+    function openProfile() {
+      // Здесь потом заменишь на profile.html
+      showToast('Профиль — скоро', 'info');
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('sidebarOverlay');
+      if (sidebar.classList.contains('active')) {
+        sidebar.classList.remove('active');
+        overlay.classList.remove('active');
+      }
+    }
+
+    // skeleton 900ms
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const card = document.getElementById('activeOrderCard');
+        card.classList.remove('loading', 'skeleton');
+      }, 900);
+    });
+
     // Init
     const savedTheme = localStorage.getItem('theme') || 'dark';
     document.documentElement.setAttribute('data-theme', savedTheme);
     themeCheckbox.checked = (savedTheme === 'dark');
     window.addEventListener('load', () => setLanguage(localStorage.getItem("lang") || "kz"));
+
+    // swipe to open menu
+    let touchStartX = 0;
+    document.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive:true });
+    document.addEventListener('touchend', (e) => {
+      const endX = e.changedTouches[0].clientX;
+      const dx = endX - touchStartX;
+      if (touchStartX < 30 && dx > 60) toggleMenu();
+    }, { passive:true });
   </script>
 </body>
 </html>
