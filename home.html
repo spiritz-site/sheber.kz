@@ -167,17 +167,23 @@
     }
 
     /* SIDEBAR */
-    .sidebar-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 100; opacity: 0; visibility: hidden; transition: 0.3s; backdrop-filter: blur(4px); }
+    /* === STYLISH SIDEBAR === */
+    .sidebar-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 100; opacity: 0; visibility: hidden; transition: 0.3s; backdrop-filter: blur(4px); }
     .sidebar-overlay.active { opacity: 1; visibility: visible; }
+    
     .sidebar {
-      position: fixed; top: 0; left: 0; bottom: 0; width: 280px; background: var(--menu-bg);
+      position: fixed; top: 0; left: 0; bottom: 0; width: 280px; 
+      background: var(--menu-bg);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
       z-index: 101; transform: translateX(-100%); transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-      padding: 28px 24px; /* было 40px — подняли контент */
+      padding: 24px;
       display: flex; flex-direction: column;
       border-right: 1px solid var(--sidebar-border);
-      gap: 18px; /* меньше пустоты */
+      box-shadow: 10px 0 30px rgba(0,0,0,0.2);
     }
     .sidebar.active { transform: translateX(0); }
+
 
     .avatar { width: 50px; height: 50px; border-radius: 50%; background: var(--glass-bg); border: 2px solid var(--accent-green); display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700; }
 
@@ -364,6 +370,80 @@
     .active-order-card.loading .order-status,
     .active-order-card.loading .order-btn { opacity: 0; }
     .active-order-card.loading { min-height: 78px; }
+    /* Greeting вместо адреса */
+.greeting{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  cursor: default;
+  user-select:none;
+  line-height:1.1;
+}
+.hello{
+  font-size:10px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.user-name{
+  font-size:14px;
+  font-weight: 800;
+  color: var(--text-main);
+  max-width: 220px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* ==== COMPACT BOTTOM NAV ==== */
+.main-content{
+  padding-bottom: 98px; /* было 140px */
+}
+
+.bottom-bar{
+  bottom: 10px;
+  border-radius: 18px;
+  padding: 8px 10px;       /* было 10px 12px */
+  box-shadow: 0 10px 30px rgba(0,0,0,0.22); /* легче */
+}
+
+.nav-item{
+  gap: 4px;                /* было 6px */
+  padding: 6px 8px;        /* было 8px 10px */
+  border-radius: 14px;     /* было 18px */
+}
+
+.nav-item svg{
+  width: 20px; height: 20px; /* было 22px */
+}
+
+.nav-label{
+  font-size: 10px;         /* было 11px */
+  font-weight: 700;
+}
+
+.nav-create{
+  margin-top: -16px;       /* было -24px */
+  padding: 0;
+}
+
+.create-btn{
+  width: 50px; height: 50px; /* было 62px */
+  border-radius: 16px;       /* было 22px */
+  box-shadow: none;          /* было с большой тенью */
+}
+
+.create-btn svg{
+  width: 24px; height: 24px; /* было 28px */
+}
+
+.create-label{
+  margin-top: 6px;           /* было 8px */
+  font-size: 10px;           /* было 11px */
+  font-weight: 800;
+}
+
   </style>
 </head>
 
@@ -418,12 +498,11 @@
           <svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
         </button>
 
-        <div class="address-selector">
-          <div class="addr-label" data-i18n="addr_label">Мекенжай</div>
-          <div class="addr-val">Астана, Көктал-1
-            <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
-          </div>
-        </div>
+        <div class="greeting">
+  <div class="hello" data-i18n="hello">Сәлем</div>
+  <div class="user-name" id="userName">Азамат</div>
+</div>
+
 
         <button class="icon-btn" onclick="showToast('Уведомления — скоро', 'info')">
           <svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/></svg>
@@ -507,6 +586,7 @@
   <script>
     const translations = {
       kz: {
+        hello: "Сәлем",
         menu_profile: "Профиль",
         menu_orders: "Тапсырыстар",
         menu_settings: "Баптаулар",
@@ -530,6 +610,7 @@
         tab_profile: "Профиль"
       },
       ru: {
+        hello: "Привет",
         menu_profile: "Профиль",
         menu_orders: "Заказы",
         menu_settings: "Настройки",
@@ -627,17 +708,17 @@
     }
 
     function setTab(tab) {
-      document.getElementById('navHome').classList.toggle('active', tab === 'home');
-      document.getElementById('navProfile').classList.toggle('active', tab === 'profile');
+  document.getElementById('navHome').classList.toggle('active', tab === 'home');
+  document.getElementById('navProfile').classList.toggle('active', tab === 'profile');
 
-      if (tab === 'home') window.scrollTo({ top: 0, behavior: 'smooth' });
-      if (tab === 'profile') openProfile();
-    }
+  if (tab === 'home') window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (tab === 'profile') window.location.href = "user-profile.html";
+}
 
-    function openCreate() {
-      // Здесь потом заменишь на create.html
-      showToast('Создание заказа — скоро', 'info');
-    }
+function openProfile() {
+  window.location.href = "user-profile.html";
+}
+
 
     function openProfile() {
       // Здесь потом заменишь на profile.html
