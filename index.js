@@ -215,7 +215,7 @@ const translations = {
     function closeModal() { modal.classList.remove('active'); }
     function backToPhone() { showStep('stepPhone'); }
 
- function sendCode() {
+    function sendCode() {
       const phone = document.getElementById('phoneInput').value.trim();
       if (phone.length < 5) {
         showToast("Нөмірді дұрыс жазыңыз / Введите номер", "warn");
@@ -246,7 +246,6 @@ const translations = {
       showToast("Код расталды / Код подтверждён", "success");
       showStep('stepRole');
     }
-
 
     function chooseRole(role) {
       currentRole = role;
@@ -283,6 +282,4 @@ const translations = {
     document.getElementById('startLink').addEventListener('click', openModal);
     document.getElementById('themeToggle').addEventListener('click', toggleTheme);
     document.querySelectorAll(".lang-pill").forEach(p => p.addEventListener("click", () => setLanguage(p.dataset.lang)));
-
     modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
-
