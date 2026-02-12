@@ -215,37 +215,38 @@ const translations = {
     function closeModal() { modal.classList.remove('active'); }
     function backToPhone() { showStep('stepPhone'); }
 
-    function sendCode() {
-      const phone = document.getElementById('phoneInput').value.trim();
-      if (phone.length < 5) {
-        showToast("Нөмірді дұрыс жазыңыз / Введите номер", "warn");
-        return;
-      }
-      document.getElementById('displayPhone').textContent = phone;
-      showToast("Код жіберілді / Код отправлен", "success");
-      showStep('stepCode');
-    }
+async function sendCode() {
+  const phone = document.getElementById('phoneInput').value.trim();
+  const r = await fetch('/api/send_code.php', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({ phone })
+  });
+  const data = await r.json();
+  if (!data.ok) return alert(data.error || 'Ошибка');
+
+  document.getElementById('displayPhone').textContent = phone;
+  showStep('stepCode');
+}
 
     // ✅ После ввода кода -> переход на home.html
     // Логика:
     // - login: сразу на home.html
     // - register: идем на выбор роли/анкета, а после сохранения тоже переходим на home.html
-    function verifyCode() {
-      const code = document.getElementById('codeInput').value.trim();
-      if (!code) {
-        showToast("Код енгізіңіз / Введите код", "warn");
-        return;
-      }
+async function verifyCode() {
+  const phone = document.getElementById('phoneInput').value.trim();
+  const code  = document.getElementById('codeInput').value.trim();
 
-      if (authMode === 'login') {
-        showToast("Сәтті кірдіңіз! / Успешный вход!", "success", 1200);
-        setTimeout(() => window.location.href = "home.html", 600);
-        return;
-      }
+  const r = await fetch('/api/verify_code.php', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({ phone, code })
+  });
+  const data = await r.json();
+  if (!data.ok) return alert(data.error || 'Ошибка');
 
-      showToast("Код расталды / Код подтверждён", "success");
-      showStep('stepRole');
-    }
+  showStep('stepRole');
+}
 
     function chooseRole(role) {
       currentRole = role;
@@ -282,4 +283,5 @@ const translations = {
     document.getElementById('startLink').addEventListener('click', openModal);
     document.getElementById('themeToggle').addEventListener('click', toggleTheme);
     document.querySelectorAll(".lang-pill").forEach(p => p.addEventListener("click", () => setLanguage(p.dataset.lang)));
+
     modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
