@@ -8,271 +8,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="user-profile.css">
 
   <style>
-    *{ box-sizing:border-box; }
-    *:focus{ outline:none !important; }
-    html,body{ height:100%; margin:0; font-family:'Montserrat', sans-serif; background:var(--bg); color:var(--text); }
-
-    :root{
-      --bg:#0b1020;
-      --card: rgba(255,255,255,0.06);
-      --border: rgba(255,255,255,0.10);
-      --text:#fff;
-      --muted: rgba(255,255,255,0.65);
-      --accent:#00f2a0;
-      --danger:#ff4757;
-      --shadow: 0 12px 40px rgba(0,0,0,0.35);
-    }
-
-    [data-theme="light"]{
-      --bg:#f4f6f9;
-      --card: rgba(255,255,255,0.85);
-      --border: rgba(0,0,0,0.08);
-      --text:#141824;
-      --muted: rgba(20,24,36,0.62);
-      --shadow: 0 10px 30px rgba(0,0,0,0.08);
-    }
-
-    .app{
-      min-height:100vh;
-      padding:18px 14px;
-      display:flex;
-      justify-content:center;
-    }
-
-    .main{
-      width:100%;
-      max-width:560px;
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-    }
-
-    /* Header */
-    .header{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      padding:6px 0;
-    }
-    .icon-btn{
-      width:38px; height:38px;
-      border-radius:14px;
-      border:1px solid var(--border);
-      background:var(--card);
-      color:var(--text);
-      display:flex; align-items:center; justify-content:center;
-      cursor:pointer;
-      user-select:none;
-    }
-    .icon-btn svg{ width:22px; height:22px; fill:currentColor; }
-
-    .title{
-      font-size:14px;
-      font-weight:900;
-      letter-spacing:.2px;
-      display:flex;
-      align-items:center;
-      gap:8px;
-      white-space:nowrap;
-    }
-    .badge{
-      font-size:9px;
-      font-weight:900;
-      padding:5px 8px;
-      border-radius:999px;
-      border:1px solid rgba(0,242,160,0.25);
-      background: rgba(0,242,160,0.10);
-      color: var(--text);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .save-indicator{
-      display:flex;
-      align-items:center;
-      gap:6px;
-      font-size:11px;
-      font-weight:800;
-      color:var(--muted);
-      white-space:nowrap;
-    }
-    .save-dot{
-      width:7px; height:7px;
-      border-radius:999px;
-      background: rgba(255,204,0,0.9);
-    }
-    .save-dot.saved{ background: rgba(0,242,160,0.95); }
-
-    /* Cards */
-    .card{
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:18px;
-      padding:14px;
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
-    }
-
-    /* Hero */
-    .hero{
-      display:flex;
-      align-items:center;
-      gap:12px;
-    }
-    .avatar{
-      width:46px; height:46px;
-      border-radius:14px;
-      border:1px solid rgba(0,242,160,0.35);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:900;
-      font-size:16px;
-      color:var(--text);
-      background: rgba(0,242,160,0.06);
-      flex:0 0 auto;
-    }
-    .hero-info{ min-width:0; flex:1; }
-    .hero-name{
-      margin:0;
-      font-size:15px;
-      font-weight:900;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-    .hero-sub{
-      margin-top:4px;
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-      color:var(--muted);
-      font-size:11px;
-      font-weight:700;
-    }
-    .pill{
-      display:flex;
-      align-items:center;
-      gap:6px;
-      padding:6px 8px;
-      border-radius:12px;
-      border:1px solid var(--border);
-      background: rgba(255,255,255,0.03);
-    }
-    [data-theme="light"] .pill{ background: rgba(0,0,0,0.02); }
-    .pill svg{ width:13px; height:13px; fill: var(--accent); }
-
-    /* Stats */
-    .stats{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:8px;
-    }
-    .stat{
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:16px;
-      padding:10px 8px;
-      text-align:center;
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
-    }
-    .stat-num{
-      font-size:14px;
-      font-weight:900;
-      line-height:1;
-      margin-bottom:4px;
-      color: rgba(255,255,255,0.92);
-    }
-    [data-theme="light"] .stat-num{ color: rgba(20,24,36,0.92); }
-    .stat-label{
-      font-size:10px;
-      font-weight:800;
-      color:var(--muted);
-      letter-spacing:.6px;
-      text-transform:uppercase;
-    }
-
-    /* Form */
-    .section-title{
-      font-size:12px;
-      font-weight:900;
-      letter-spacing:.3px;
-      margin: 2px 2px 0 2px;
-    }
-    .form{
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-    }
-    .row{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:10px;
-    }
-    @media (max-width:460px){ .row{ grid-template-columns:1fr; } }
-
-    .field{ display:flex; flex-direction:column; gap:7px; }
-    .label{
-      font-size:10px;
-      font-weight:900;
-      letter-spacing:.9px;
-      text-transform:uppercase;
-      color: var(--accent);
-    }
-    .input{
-      width:100%;
-      padding:12px 12px;
-      border-radius:14px;
-      border:1px solid var(--border);
-      background: rgba(0,0,0,0.18);
-      color:var(--text);
-      font-family:inherit;
-      font-size:14px;
-      transition: 0.15s ease;
-    }
-    [data-theme="light"] .input{ background: rgba(255,255,255,0.70); }
-    .input:focus{
-      border-color: rgba(0,242,160,0.65);
-      box-shadow: 0 0 0 3px rgba(0,242,160,0.10);
-      background: rgba(0,242,160,0.04);
-    }
-    .hint{
-      font-size:11px;
-      color:var(--muted);
-      line-height:1.35;
-    }
-
-    .actions{
-      display:flex;
-      gap:10px;
-      margin-top:6px;
-    }
-    .btn{
-      flex:1;
-      border:none;
-      cursor:pointer;
-      border-radius:14px;
-      padding:12px 12px;
-      font-weight:900;
-      text-transform:uppercase;
-      letter-spacing:.8px;
-      font-size:12px;
-      user-select:none;
-    }
-    .btn:active{ transform: scale(.99); }
-    .btn-primary{
-      background: linear-gradient(135deg, #00f2a0 0%, #00c9ff 100%);
-      color:#071020;
-    }
-    .btn-ghost{
-      background:var(--card);
-      border:1px solid var(--border);
-      color:var(--text);
-    }
+   
   </style>
 </head>
 
@@ -290,13 +29,12 @@
           <span class="badge" id="roleBadge">Client</span>
         </div>
 
-        <div class="save-indicator" id="saveIndicator" title="Статус">
+        <div class="save-indicator" id="saveIndicator" title="Статус автосохранения">
           <span class="save-dot" id="saveDot"></span>
           <span id="saveText">Не сохранено</span>
         </div>
       </header>
 
-      <!-- HERO -->
       <div class="card">
         <div class="hero">
           <div class="avatar" id="avatarLetter">A</div>
@@ -316,7 +54,6 @@
         </div>
       </div>
 
-      <!-- STATS -->
       <div class="stats">
         <div class="stat">
           <div class="stat-num" id="statOrders">12</div>
@@ -326,21 +63,51 @@
           <div class="stat-num" id="statRating">4.9</div>
           <div class="stat-label">Рейтинг</div>
         </div>
-        <div class="stat">
-          <div class="stat-num" id="statSaved">0</div>
-          <div class="stat-label">Сохранено</div>
-        </div>
       </div>
 
-      <!-- EDIT FORM -->
-      <div class="section-title">Данные профиля</div>
+      <div class="section-title">Личные данные</div>
       <div class="card">
         <div class="form">
+          
+          <div class="field">
+            <div class="label">Имя</div>
+            <input class="input" id="nameInput" type="text" placeholder="Ваше имя" autocomplete="name">
+          </div>
+
+          <div class="field">
+            <div class="label">О себе</div>
+            <textarea class="input" id="aboutInput" placeholder="Коротко о ваших навыках или пожеланиях..."></textarea>
+          </div>
+
+          <div class="divider"></div>
+
           <div class="row">
             <div class="field">
-              <div class="label">Имя</div>
-              <input class="input" id="nameInput" type="text" placeholder=" " autocomplete="name">
+              <div class="label">Телефон</div>
+              <input class="input" id="phoneInput" type="tel" placeholder="+7 (___) ___-__-__" autocomplete="tel">
             </div>
+            
+            <div class="field">
+              <div class="label">Город</div>
+              <input class="input" id="cityInput" list="cities" placeholder="Выберите город" autocomplete="address-level2">
+              <datalist id="cities">
+                <option value="Астана">
+                <option value="Алматы">
+                <option value="Шымкент">
+                <option value="Караганда">
+                <option value="Актобе">
+                <option value="Тараз">
+                <option value="Павлодар">
+                <option value="Усть-Каменогорск">
+                <option value="Семей">
+                <option value="Атырау">
+              </datalist>
+            </div>
+          </div>
+
+          <div class="section-title" style="margin-top:4px;">Настройки аккаунта</div>
+          
+          <div class="row">
             <div class="field">
               <div class="label">Роль</div>
               <select class="input" id="roleSelect">
@@ -348,33 +115,21 @@
                 <option value="master">Мастер</option>
               </select>
             </div>
-          </div>
-
-          <div class="row">
-            <div class="field">
-              <div class="label">Телефон</div>
-              <input class="input" id="phoneInput" type="tel" placeholder="+7 (700) 000-00-00" autocomplete="tel">
-              <div class="hint">Номер используется для входа и уведомлений.</div>
+            
+            <div class="field" id="masterFields" style="display:none;">
+              <div class="label">Специальность</div>
+              <select class="input" id="specSelect">
+                <option value="electrician">Электрик</option>
+                <option value="plumber">Сантехник</option>
+                <option value="builder">Ремонт</option>
+                <option value="cleaner">Уборка</option>
+                <option value="it">Компьютеры</option>
+              </select>
             </div>
-            <div class="field">
-              <div class="label">Город</div>
-              <input class="input" id="cityInput" type="text" placeholder=" " autocomplete="address-level2">
-              <div class="hint">Помогает показывать мастеров рядом.</div>
-            </div>
-          </div>
-
-          <div class="field" id="masterFields" style="display:none;">
-            <div class="label">Специальность</div>
-            <select class="input" id="specSelect">
-              <option value="electrician">Электрик</option>
-              <option value="plumber">Сантехник</option>
-              <option value="builder">Ремонт</option>
-              <option value="cleaner">Уборка</option>
-            </select>
           </div>
 
           <div class="actions">
-            <button class="btn btn-ghost" onclick="resetForm()">Отмена</button>
+            <button class="btn btn-ghost" onclick="resetForm()">Сброс</button>
             <button class="btn btn-primary" id="saveBtn" onclick="saveProfile()">Сохранить</button>
           </div>
         </div>
@@ -383,142 +138,7 @@
     </div>
   </div>
 
-  <script>
-    /* ===== Minimal profile only ===== */
 
-    const saveDot = document.getElementById('saveDot');
-    const saveText = document.getElementById('saveText');
-    let dirty = false;
-    let saveTimer = null;
-
-    function setDirty(state){
-      dirty = state;
-      if (dirty){
-        saveDot.classList.remove('saved');
-        saveText.innerText = 'Не сохранено';
-      } else {
-        saveDot.classList.add('saved');
-        saveText.innerText = 'Сохранено';
-      }
-    }
-
-    function scheduleAutoSave(){
-      if (saveTimer) clearTimeout(saveTimer);
-      saveTimer = setTimeout(() => {
-        if (dirty) saveProfile(true); // тихое сохранение
-      }, 700);
-    }
-
-    const defaultProfile = {
-      name: "Азамат",
-      role: "client",
-      phone: "+7 (707) 123-45-67",
-      city: "Астана",
-      spec: "electrician"
-    };
-
-    function loadProfile(){
-      const raw = localStorage.getItem('profile');
-      const profile = raw ? JSON.parse(raw) : defaultProfile;
-
-      document.getElementById('nameInput').value = profile.name || '';
-      document.getElementById('roleSelect').value = profile.role || 'client';
-      document.getElementById('phoneInput').value = profile.phone || '';
-      document.getElementById('cityInput').value = profile.city || '';
-      document.getElementById('specSelect').value = profile.spec || 'electrician';
-
-      syncRoleUI(profile.role || 'client');
-      syncHero(profile);
-      setDirty(false);
-    }
-
-    function getProfileFromForm(){
-      return {
-        name: document.getElementById('nameInput').value.trim(),
-        role: document.getElementById('roleSelect').value,
-        phone: document.getElementById('phoneInput').value.trim(),
-        city: document.getElementById('cityInput').value.trim(),
-        spec: document.getElementById('specSelect').value
-      };
-    }
-
-    function syncHero(profile){
-      const name = profile.name || '';
-      document.getElementById('heroName').innerText = name || 'Без имени';
-      document.getElementById('heroPhone').innerText = profile.phone || '—';
-      document.getElementById('heroCity').innerText = profile.city || '—';
-      document.getElementById('avatarLetter').innerText = (name[0] || 'S').toUpperCase();
-
-      const badge = document.getElementById('roleBadge');
-      if (profile.role === 'master'){
-        badge.innerText = 'Master';
-        badge.style.background = 'rgba(0,201,255,0.12)';
-        badge.style.borderColor = 'rgba(0,201,255,0.22)';
-      } else {
-        badge.innerText = 'Client';
-        badge.style.background = 'rgba(0,242,160,0.10)';
-        badge.style.borderColor = 'rgba(0,242,160,0.25)';
-      }
-    }
-
-    function syncRoleUI(role){
-      document.getElementById('masterFields').style.display = (role === 'master') ? 'block' : 'none';
-    }
-
-    function resetForm(){
-      loadProfile();
-    }
-
-    function saveProfile(silent=false){
-      const profile = getProfileFromForm();
-
-      if (!profile.name) return;
-      if (profile.phone.length < 5) return;
-
-      localStorage.setItem('profile', JSON.stringify(profile));
-      syncHero(profile);
-      setDirty(false);
-
-      const savedCount = parseInt(document.getElementById('statSaved').innerText || '0', 10);
-      document.getElementById('statSaved').innerText = isNaN(savedCount) ? 1 : savedCount + 1;
-    }
-
-    function onAnyChange(){
-      setDirty(true);
-      scheduleAutoSave();
-      const profile = getProfileFromForm();
-      syncRoleUI(profile.role);
-      syncHero(profile);
-    }
-
-    document.getElementById('nameInput').addEventListener('input', onAnyChange);
-    document.getElementById('phoneInput').addEventListener('input', onAnyChange);
-    document.getElementById('cityInput').addEventListener('input', onAnyChange);
-    document.getElementById('roleSelect').addEventListener('change', onAnyChange);
-    document.getElementById('specSelect').addEventListener('change', onAnyChange);
-
-    function goBack(){
-      window.history.length > 1 ? window.history.back() : (window.location.href = "home.html");
-    }
-
-    loadProfile();
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter'){
-        const tag = (document.activeElement?.tagName || '').toLowerCase();
-        if (tag === 'input' || tag === 'select'){
-          e.preventDefault();
-          saveProfile(false);
-        }
-      }
-    });
-
-    window.addEventListener('beforeunload', (e) => {
-      if (dirty){
-        e.preventDefault();
-        e.returnValue = '';
-      }
-    });
-  </script>
+<script src="user-profile.js"></script>
 </body>
 </html>
